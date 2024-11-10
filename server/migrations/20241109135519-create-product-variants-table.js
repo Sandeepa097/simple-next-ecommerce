@@ -1,7 +1,8 @@
-import { QueryInterface, DataTypes } from 'sequelize';
+'use strict';
 
-export = {
-  async up(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('ProductVariants', {
       id: {
         allowNull: false,
@@ -11,7 +12,7 @@ export = {
       },
       productId: {
         allowNull: false,
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: Sequelize.INTEGER.UNSIGNED,
         references: {
           model: 'Products',
           key: 'id',
@@ -20,12 +21,12 @@ export = {
       },
       price: {
         allowNull: false,
-        type: DataTypes.DECIMAL(10, 2),
+        type: Sequelize.DECIMAL(10, 2),
       },
       isAvailable: {
         allowNull: false,
         defaultValue: true,
-        type: DataTypes.BOOLEAN,
+        type: Sequelize.BOOLEAN,
       },
       variantImage: {
         allowNull: true,
@@ -41,7 +42,8 @@ export = {
       },
     });
   },
-  async down(queryInterface: QueryInterface) {
+
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('ProductVariants');
   },
 };

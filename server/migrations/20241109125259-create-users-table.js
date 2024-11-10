@@ -1,22 +1,27 @@
-import { QueryInterface, DataTypes } from 'sequelize';
+'use strict';
 
-export = {
-  async up(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
-    await queryInterface.createTable('Categories', {
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('Users', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER.UNSIGNED,
       },
-      name: {
+      username: {
         allowNull: false,
         unique: true,
         type: Sequelize.STRING,
       },
-      description: {
+      passwordHash: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      contactWhatsapp: {
         allowNull: true,
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -28,7 +33,8 @@ export = {
       },
     });
   },
-  async down(queryInterface: QueryInterface) {
-    await queryInterface.dropTable('Categories');
+
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('Users');
   },
 };

@@ -5,9 +5,10 @@ import {
   DB_DATABASE,
   DB_HOST,
   DB_DIALECT,
-} from './config';
+} from './config.mjs';
 
-module.exports = {
+// eslint-disable-next-line import/no-anonymous-default-export
+export default {
   [NODE_ENV]: {
     username: DB_USER,
     password: DB_PASSWORD,
