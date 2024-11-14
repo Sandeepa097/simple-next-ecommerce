@@ -1,18 +1,18 @@
-import { Sequelize } from 'sequelize';
-import {
+const { Sequelize } = require('sequelize');
+const {
   DB_DATABASE,
   DB_DIALECT,
   DB_HOST,
   DB_PASSWORD,
   DB_PORT,
   DB_USER,
-} from '../config/config.mjs';
-import User from './User.js';
-import Category from './Category.js';
-import Product from './Product.js';
-import Attribute from './Attribute.js';
-import ProductVariant from './ProductVariant.js';
-import ProductVariantAttributeValue from './ProductVariantAttributeValue.js';
+} = require('../config/config');
+const User = require('./User');
+const Category = require('./Category');
+const Product = require('./Product');
+const Attribute = require('./Attribute');
+const ProductVariant = require('./ProductVariant');
+const ProductVariantAttributeValue = require('./ProductVariantAttributeValue');
 
 const sequelizeConnection = new Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
   host: DB_HOST,
@@ -38,5 +38,4 @@ const models = {
 models.sequelize = sequelizeConnection;
 models.Sequelize = Sequelize;
 
-export const sequelize = sequelizeConnection;
-export default models;
+module.exports = models;

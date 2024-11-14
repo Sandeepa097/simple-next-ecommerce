@@ -1,9 +1,9 @@
-import { createServer } from 'http';
-import { parse } from 'url';
-import next from 'next';
-import { PORT, NODE_ENV } from './server/config/config.mjs';
+const { createServer } = require('http');
+const { parse } = require('url');
+const next = require('next');
+const { PORT, NODE_ENV } = require('./server/config/config');
 
-import { sequelize } from './server/models/index.mjs';
+const { sequelize } = require('./server/models');
 
 const dev = NODE_ENV !== 'production';
 

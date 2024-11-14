@@ -1,6 +1,4 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
+require('dotenv').config();
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const APP_NAME = process.env.APP_NAME || 'my-app';
@@ -17,7 +15,7 @@ const SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
 const SESSION_SECRET =
   process.env.SESSION_SECRET || 'zzVFWmWDtidtnvyTZyNYNNpkeZPoExxD';
 
-export {
+module.exports = {
   NODE_ENV,
   APP_NAME,
   PORT,
