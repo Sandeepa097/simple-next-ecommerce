@@ -12,7 +12,9 @@
     "migrate:undo:all": "npx sequelize-cli db:migrate:undo:all"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
+    "iron-session": "^8.0.4",
     "mariadb": "^3.4.0",
     "next": "15.0.3",
     "react": "19.0.0-rc-66855b96-20241106",
