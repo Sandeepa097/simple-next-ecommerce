@@ -11,5 +11,10 @@ export const authenticate = async (username, password) => {
 
   if (!authenticationSucceeded) return null;
 
-  return await authUser.reload({ attributes: { exclude: ['password'] } });
+  return {
+    id: authUser.dataValues.id,
+    username: authUser.dataValues.username,
+    createdAt: authUser.dataValues.createdAt,
+    updatedAt: authUser.dataValues.updatedAt,
+  };
 };

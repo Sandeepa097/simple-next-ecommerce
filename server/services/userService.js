@@ -9,3 +9,7 @@ export const findOne = async (where) => {
     where,
   });
 };
+
+export const update = async (data, where) => {
+  return await User.update(data, { where });
+};

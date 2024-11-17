@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server';
 const { getIronSession } = require('iron-session');
 const { sessionOptions } = require('../../../../server/config/session');
 const { authenticate } = require('../../../../server/services/authService');
