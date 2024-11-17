@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import FormWrapper from '../../components/FormWrapper';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import FormWrapper from '../../components/base/FormWrapper';
+import Input from '../../components/base/Input';
+import Button from '../../components/base/Button';
+import '../../styles/globals.css';
 
-export default function Login() {
+export default function Page() {
   const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -28,21 +29,27 @@ export default function Login() {
 
   return (
     <FormWrapper>
-      <h2 className="text-2xl font-semibold text-center text-gray-700 mb-6">Admin Login</h2>
+      <h2 className="text-2xl font-semibold text-center text-gray-700 mb-6">
+        Admin Login
+      </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input
+          className="mt-2"
           type="text"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <Input
+          className="mt-2 mt-2"
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button type="submit">Login</Button>
+        <Button className="mt-2" type="submit">
+          Login
+        </Button>
       </form>
     </FormWrapper>
   );

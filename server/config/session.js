@@ -1,10 +1,8 @@
-const { SESSION_SECRET, NODE_ENV, APP_NAME } = require('./config');
-
 const sessionOptions = {
-  password: SESSION_SECRET,
-  cookieName: `${APP_NAME}-session`,
+  password: process.env.SESSION_SECRET,
+  cookieName: `${process.env.APP_NAME}-session`,
   cookieOptions: {
-    secure: NODE_ENV === 'production',
+    secure: process.env.NODE_ENV === 'production',
   },
 };
 
