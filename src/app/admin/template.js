@@ -1,3 +1,9 @@
+import NavigationMenu from '../../components/admin/cms/NavigationMenu';
+
 export default function Template({ children }) {
-  return <div>{children}</div>;
+  return (
+    <div>
+      <NavigationMenu>{children}</NavigationMenu>
+    </div>
+  );
 }

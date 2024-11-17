@@ -4,7 +4,7 @@ import { sessionOptions } from '../server/config/session.js';
 import { getIronSession } from 'iron-session';
 
 export async function middleware(request) {
-  const session = await getIronSession(cookies(), sessionOptions);
+  const session = await getIronSession(await cookies(), sessionOptions);
 
   if (!session?.user) {
     return NextResponse.redirect(new URL('/auth', request.url));
