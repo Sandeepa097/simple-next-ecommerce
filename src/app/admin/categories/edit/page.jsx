@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import CategoryForm from '../../../../components/admin/cms/CategoryForm';
 import MenuContentHeader from '../../../../components/admin/cms/MenuContentHeader';
 
-export default function EditCategory() {
+export default function Page() {
   const searchParams = useSearchParams();
   const id = searchParams.get('key');
   const [category, setCategory] = useState(null);
