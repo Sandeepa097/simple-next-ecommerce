@@ -43,6 +43,15 @@ const unlinkFilePromise = (file) => {
   });
 };
 
+const readFilePromise = (file) => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(file, (error, data) => {
+      if (error) reject(error);
+      resolve(data);
+    });
+  });
+};
+
 const readDirectoryPromise = (directory) => {
   return new Promise((resolve, reject) => {
     fs.readdir(directory, (error, files) => {
@@ -91,8 +100,21 @@ const clearTemp = async () => {
   return true;
 };
 
+const viewTemp = async (tempId) => {
+  const filePath = path.join(process.cwd(), 'storage/temp', tempId);
+  const contentType = mime.lookup(tempId);
+
+  if (!contentType || !fs.existsSync(filePath)) return false;
+
+  return {
+    content: await readFilePromise(filePath),
+    contentType,
+  };
+};
+
 module.exports = {
   uploadTemp,
   moveTemp,
   clearTemp,
+  viewTemp,
 };
