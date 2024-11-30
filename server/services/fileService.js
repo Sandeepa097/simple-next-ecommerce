@@ -52,7 +52,7 @@ const readDirectoryPromise = (directory) => {
   });
 };
 
-export const uploadTemp = async (file) => {
+const uploadTemp = async (file) => {
   const directoryPath = path.join(process.cwd(), 'storage/temp');
   const fileName = `${crypto.randomUUID()}.${mime.extension(file.type)}`;
   const filePath = path.join(directoryPath, fileName);
@@ -66,7 +66,7 @@ export const uploadTemp = async (file) => {
   }
 };
 
-export const moveTemp = async (tempId, destination) => {
+const moveTemp = async (tempId, destination) => {
   const newDirectoryPath = path.join(process.cwd(), destination);
   const oldPath = path.join(process.cwd(), 'storage/temp', tempId);
   const newPath = path.join(newDirectoryPath, tempId);
@@ -80,7 +80,7 @@ export const moveTemp = async (tempId, destination) => {
   }
 };
 
-export const clearTemp = async () => {
+const clearTemp = async () => {
   const directory = path.join(process.cwd(), 'storage/temp');
   const files = await readDirectoryPromise(directory);
 
@@ -89,4 +89,10 @@ export const clearTemp = async () => {
   }
 
   return true;
+};
+
+module.exports = {
+  uploadTemp,
+  moveTemp,
+  clearTemp,
 };

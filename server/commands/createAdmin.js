@@ -2,7 +2,7 @@ const inquirer = require('inquirer');
 const { create, findOne } = require('../services/userService');
 
 const init = async () => {
-  const answers = await inquirer.prompt([
+  const answers = await inquirer.default.prompt([
     {
       name: 'username',
       message: 'What is your username?',
@@ -24,7 +24,7 @@ const init = async () => {
     },
   ]);
 
-  await inquirer.prompt([
+  await inquirer.default.prompt([
     {
       type: 'password',
       name: 'confirmPassword',
@@ -58,6 +58,7 @@ const init = async () => {
   }
 
   const created = await create(answers);
+  delete created.dataValues.password;
 
   console.log('Admin is successfully created with following details:');
   console.log(created.dataValues);

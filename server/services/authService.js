@@ -1,6 +1,6 @@
 const { User } = require('../models');
 
-export const authenticate = async (username, password) => {
+const authenticate = async (username, password) => {
   const authUser = await User.scope('withPassword').findOne({
     where: { username },
   });
@@ -17,4 +17,8 @@ export const authenticate = async (username, password) => {
     createdAt: authUser.dataValues.createdAt,
     updatedAt: authUser.dataValues.updatedAt,
   };
+};
+
+module.exports = {
+  authenticate,
 };
