@@ -35,7 +35,7 @@ export default function ProductListingNavBar({ order = [] }) {
       <nav className="flex" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
           {order.length ? (
-            <LinkedItem title="Home" href="#" Icon={HomeIcon} />
+            <LinkedItem title="Home" href="/" Icon={HomeIcon} />
           ) : (
             <UnlinkedItem title="Home" Icon={HomeIcon} />
           )}
