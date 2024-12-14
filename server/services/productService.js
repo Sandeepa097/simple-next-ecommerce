@@ -2,6 +2,7 @@ const {
   Product,
   ProductVariant,
   ProductVariantAttributeValue,
+  Attribute,
 } = require('../models');
 
 const findAll = async (where = null) => {
@@ -26,6 +27,12 @@ const findOne = async (where) => {
           {
             model: ProductVariantAttributeValue,
             as: 'productVariantAttributeValues',
+            include: [
+              {
+                model: Attribute,
+                as: 'attribute',
+              },
+            ],
           },
         ],
       },
