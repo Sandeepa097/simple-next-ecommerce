@@ -10,13 +10,18 @@ import SortButtonIcon from '../../components/icons/SortButtonIcon';
 
 export default function Page() {
   const params = useParams();
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState(null);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     fetch(`/api/categories/${params.category}`)
       .then((res) => res.json())
       .then((data) => setCategory(data));
-  }, []);
+
+    fetch(`/api/categories/${params.category}/products`)
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, [params]);
 
   return (
     <div>
@@ -31,7 +36,7 @@ export default function Page() {
           </div>
         </div>
         <div className="px-4">
-          <ProductListing showMore={true} />
+          <ProductListing products={products} showMore={true} />
         </div>
       </section>
     </div>

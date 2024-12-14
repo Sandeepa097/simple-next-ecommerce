@@ -1,10 +1,12 @@
 import ProductListItem from './ProductListItem';
 
-export default function ProductListing({ showMore = false }) {
+export default function ProductListing({ products, showMore = false }) {
   return (
     <div>
       <div className="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
-        <ProductListItem />
+        {products.map((product) => (
+          <ProductListItem key={product.id} product={product} />
+        ))}
       </div>
       {showMore && (
         <div className="w-full text-center">

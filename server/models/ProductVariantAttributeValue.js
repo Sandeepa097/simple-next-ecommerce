@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'productVariantId',
         as: 'productVariant',
       });
+
       models.ProductVariantAttributeValue.belongsTo(models.Attribute, {
         foreignKey: 'attributeId',
         as: 'attribute',

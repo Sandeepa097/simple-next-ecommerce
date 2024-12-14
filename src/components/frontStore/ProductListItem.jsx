@@ -1,8 +1,8 @@
-export default function ProductListItem() {
+export default function ProductListItem({ product }) {
   return (
     <div className="rounded-lg border border-gray-400 bg-white p-6 shadow-sm">
       <div className="h-56 w-full">
-        <a href="#">
+        <a href={`/products/${product.id}`}>
           <img
             className="mx-auto h-full"
             src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg"
@@ -50,9 +50,9 @@ export default function ProductListItem() {
         </div>
 
         <a
-          href="#"
+          href={`/products/${product.id}`}
           className="text-lg font-semibold leading-tight text-gray-900 hover:underline">
-          Apple iMac 27, 1TB HDD, Retina 5K Display, M3 Max
+          {product.name}
         </a>
 
         <div className="mt-4 flex items-center justify-between gap-4">

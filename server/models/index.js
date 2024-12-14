@@ -35,6 +35,12 @@ const models = {
   ),
 };
 
+Object.keys(models).forEach((model) => {
+  if (models[model]?.associate) {
+    models[model].associate(models);
+  }
+});
+
 models.sequelize = sequelizeConnection;
 models.Sequelize = Sequelize;
 
