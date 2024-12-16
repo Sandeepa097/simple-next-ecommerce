@@ -1,35 +1,31 @@
 'use client';
 
-import { useParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import ProductListingNavBar from '../../components/frontStore/ProductListingNavBar';
+import ProductSearchBar from '../../components/frontStore/ProductSearchBar';
 import ProductFilterButton from '../../components/frontStore/ProductFilterButton';
 import ProductListing from '../../components/frontStore/ProductListing';
-import ProductListingNavBar from '../../components/frontStore/ProductListingNavBar';
-import FilterButtonIcon from '../../components/icons/FilterButtonIcon';
 import SortButtonIcon from '../../components/icons/SortButtonIcon';
-import ProductSearchBar from '../../components/frontStore/ProductSearchBar';
+import FilterButtonIcon from '../../components/icons/FilterButtonIcon';
 
 export default function Page() {
-  const params = useParams();
-  const [category, setCategory] = useState(null);
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get('search');
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch(`/api/categories/${params.category}`)
-      .then((res) => res.json())
-      .then((data) => setCategory(data));
-
-    fetch(`/api/categories/${params.category}/products`)
+    fetch(`/api/products?search=${searchQuery}`)
       .then((res) => res.json())
       .then((data) => setProducts(data));
-  }, [params]);
+  }, [searchQuery]);
 
   return (
     <div>
       <section className="py-2 antialiased bg-gray-50">
         <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
           <div className="mb-4 items-end justify-between space-y-4 sm:flex sm:space-y-0 md:mb-8">
-            <ProductListingNavBar order={[{ title: category?.name }]} />
+            <ProductListingNavBar order={[{ title: 'Products' }]} />
             <div className="flex items-center space-x-4">
               <ProductSearchBar />
               <ProductFilterButton title="Filters" Icon={FilterButtonIcon} />

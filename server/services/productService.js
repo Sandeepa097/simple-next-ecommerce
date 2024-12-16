@@ -1,8 +1,10 @@
+const { Op } = require('sequelize');
 const {
   Product,
   ProductVariant,
   ProductVariantAttributeValue,
   Attribute,
+  Category,
 } = require('../models');
 
 const findAll = async (where = null) => {
@@ -10,6 +12,18 @@ const findAll = async (where = null) => {
     return await Product.findAll();
   }
   return await Product.findAll({ where });
+};
+
+const searchByName = async (query) => {
+  if (!query) {
+    return await findAll();
+  }
+
+  return Product.findAll({
+    where: {
+      name: { [Op.like]: `%${query}%` },
+    },
+  });
 };
 
 const create = async (data) => {
@@ -36,12 +50,17 @@ const findOne = async (where) => {
           },
         ],
       },
+      {
+        model: Category,
+        as: 'category',
+      },
     ],
   });
 };
 
 module.exports = {
   findAll,
+  searchByName,
   create,
   findOne,
 };
