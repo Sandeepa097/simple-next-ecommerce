@@ -1,5 +1,6 @@
 const fileService = require('../../../../server/services/fileService');
 const productService = require('../../../../server/services/productService');
+const productImageService = require('../../../../server/services/productImageService');
 const productVariantService = require('../../../../server/services/productVariantService');
 const productVariantAttributeValueService = require('../../../../server/services/productVariantAttributeValueService');
 
@@ -27,36 +28,38 @@ export default async function handler(req, res) {
 }
 
 async function post(req, res) {
-  const { name, description, categoryId, coverPhoto, image, variants } =
-    req.body;
+  const { name, description, categoryId, images, image, variants } = req.body;
 
   try {
-    const coverPhotoId = await fileService.moveTemp(
-      coverPhoto,
-      'storage/products'
-    );
     const imageId = await fileService.moveTemp(image, 'storage/products');
 
     const product = await productService.create({
       categoryId,
       name,
       description,
-      coverPhoto: coverPhotoId,
       image: imageId,
     });
+
+    for (const productImage of images) {
+      const productImageId = await fileService.moveTemp(
+        productImage,
+        'storage/products'
+      );
+
+      await productImageService.create({
+        productId: product.id,
+        image: productImageId,
+      });
+    }
 
     for (const variant of variants) {
       const { price, isAvailable, variantImage, ...attributes } = variant;
 
-      const variantImageId = await fileService.moveTemp(
-        variantImage,
-        'storage/products'
-      );
       const createdVariant = await productVariantService.create({
         productId: product.id,
         price,
         isAvailable,
-        variantImage: variantImageId,
+        variantImage: variantImage,
       });
 
       for (const [attrId, attrValue] of Object.entries(attributes)) {

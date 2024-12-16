@@ -10,8 +10,8 @@ export default function ProductForm() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [categoryId, setCategoryId] = useState('');
-  const [coverPhoto, setCoverPhoto] = useState(null);
   const [image, setImage] = useState(null);
+  const [images, setImages] = useState([]);
   const [selectedAttributes, setSelectedAttributes] = useState([]);
   const [variants, setVariants] = useState([]);
 
@@ -41,7 +41,6 @@ export default function ProductForm() {
         name,
         description,
         categoryId,
-        coverPhoto,
         image,
         selectedAttributes,
         variants,
@@ -139,22 +138,26 @@ export default function ProductForm() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium">Cover Photo</label>
-        <input
-          type="file"
-          onChange={(e) => handleFileUpload(e, setCoverPhoto)}
-          className="w-full mt-1 border rounded p-2"
-          required
-        />
-      </div>
-
-      <div>
         <label className="block text-sm font-medium">Product Image</label>
         <input
           type="file"
           onChange={(e) => handleFileUpload(e, setImage)}
           className="w-full mt-1 border rounded p-2"
           required
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium">
+          Addition/Variant Images
+        </label>
+        <input
+          type="file"
+          onChange={(e) => {
+            console.log('e', e);
+          }}
+          className="w-full mt-1 border rounded p-2"
+          multiple
         />
       </div>
 

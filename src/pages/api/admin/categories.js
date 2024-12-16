@@ -2,6 +2,7 @@ const {
   findAll,
   create,
 } = require('../../../../server/services/categoryService');
+const { moveTemp } = require('../../../../server/services/fileService');
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -18,8 +19,9 @@ export default async function handler(req, res) {
 
     case 'POST':
       try {
-        const { name, description } = req.body;
-        const category = await create({ name, description });
+        const { name, description, image } = req.body;
+        const imageId = await fileService.moveTemp(image, 'storage/categories');
+        const category = await create({ name, description, image: imageId });
         res.status(201).json(category);
       } catch (error) {
         res.status(500).json({ message: 'Error creating category' });

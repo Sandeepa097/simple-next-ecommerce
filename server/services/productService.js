@@ -5,6 +5,7 @@ const {
   ProductVariantAttributeValue,
   Attribute,
   Category,
+  ProductImage,
 } = require('../models');
 
 const findAll = async (where = null) => {
@@ -53,6 +54,10 @@ const findOne = async (where) => {
       {
         model: Category,
         as: 'category',
+      },
+      {
+        model: ProductImage,
+        as: 'images',
       },
     ],
   });
