@@ -20,8 +20,8 @@ export default async function handler(req, res) {
 
     case 'PUT':
       try {
-        const { name, description } = req.body;
-        await update({ name, description }, { id });
+        const { name, urlKey, description } = req.body;
+        await update({ name, urlKey, description }, { id });
         res.status(200).json({ message: 'Category updated' });
       } catch (error) {
         res.status(500).json({ message: 'Error updating category' });

@@ -19,9 +19,14 @@ export default async function handler(req, res) {
 
     case 'POST':
       try {
-        const { name, description, image } = req.body;
+        const { name, urlKey, description, image } = req.body;
         const imageId = await fileService.moveTemp(image, 'storage/categories');
-        const category = await create({ name, description, image: imageId });
+        const category = await create({
+          name,
+          urlKey,
+          description,
+          image: imageId,
+        });
         res.status(201).json(category);
       } catch (error) {
         res.status(500).json({ message: 'Error creating category' });

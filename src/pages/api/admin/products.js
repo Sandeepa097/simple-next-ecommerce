@@ -28,7 +28,8 @@ export default async function handler(req, res) {
 }
 
 async function post(req, res) {
-  const { name, description, categoryId, images, image, variants } = req.body;
+  const { name, urlKey, description, categoryId, images, image, variants } =
+    req.body;
 
   try {
     const imageId = await fileService.moveTemp(image, 'storage/products');
@@ -36,6 +37,7 @@ async function post(req, res) {
     const product = await productService.create({
       categoryId,
       name,
+      urlKey,
       description,
       image: imageId,
     });

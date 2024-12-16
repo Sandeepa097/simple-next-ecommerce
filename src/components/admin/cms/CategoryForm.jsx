@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 export default function CategoryForm({ onSubmit, initialData = {} }) {
   const [name, setName] = useState(initialData.name || '');
+  const [urlKey, setUrlKey] = useState(initialData.urlKey || '');
   const [image, setImage] = useState(initialData.name || '');
   const [description, setDescription] = useState(initialData.description || '');
 
@@ -37,6 +38,15 @@ export default function CategoryForm({ onSubmit, initialData = {} }) {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          className="w-full p-2 border rounded"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium">URL Key</label>
+        <input
+          type="text"
+          value={urlKey}
+          onChange={(e) => setUrlKey(e.target.value)}
           className="w-full p-2 border rounded"
         />
       </div>

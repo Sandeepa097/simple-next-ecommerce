@@ -8,6 +8,7 @@ export default function ProductForm() {
   const [categories, setCategories] = useState([]);
   const [attributes, setAttributes] = useState([]);
   const [name, setName] = useState('');
+  const [urlKey, setUrlKey] = useState('');
   const [description, setDescription] = useState('');
   const [categoryId, setCategoryId] = useState('');
   const [image, setImage] = useState(null);
@@ -39,6 +40,7 @@ export default function ProductForm() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name,
+        urlKey,
         description,
         categoryId,
         image,
@@ -106,6 +108,17 @@ export default function ProductForm() {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          className="w-full mt-1 border rounded p-2"
+          required
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium">URL Key</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setUrlKey(e.target.value)}
           className="w-full mt-1 border rounded p-2"
           required
         />
