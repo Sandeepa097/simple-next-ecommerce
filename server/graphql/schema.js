@@ -32,9 +32,19 @@ const typeDefs = gql`
     productId: Int
   }
 
+  type MenuItem {
+    title: String
+    url: String
+  }
+
+  type Menu {
+    items: [MenuItem]
+  }
+
   type Query {
     products: [Product]
     product(urlKey: String!): Product
+    menu(handle: String!): Menu
   }
 `;
 
