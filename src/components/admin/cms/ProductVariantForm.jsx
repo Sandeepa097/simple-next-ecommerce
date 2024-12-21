@@ -1,25 +1,9 @@
 export default function ProductVariantForm({
   selectedAttributes,
+  variantImages,
   variants,
   setVariants,
 }) {
-  const handleFileUpload = async (e, setter) => {
-    const formData = new FormData();
-    formData.append('file', e.target.files[0]);
-
-    const response = await fetch('/api/admin/files/temp', {
-      method: 'POST',
-      body: formData,
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      setter(data.name);
-    } else {
-      alert('Failed to upload file');
-    }
-  };
-
   const handleAddVariant = () => {
     const newVariant = {};
     selectedAttributes.forEach((attr) => {
@@ -43,15 +27,19 @@ export default function ProductVariantForm({
         <div key={index} className="space-y-2 border p-4 rounded mt-4">
           <div>
             <label className="block text-sm font-medium">Variant Photo</label>
-            <input
-              type="file"
+            <select
+              value={variant.variantImage}
               onChange={(e) =>
-                handleFileUpload(e, (value) => {
-                  handleVariantChange(index, 'variantImage', value);
-                })
+                handleVariantChange(index, 'variantImage', e.target.value)
               }
               className="w-full mt-1 border rounded p-2"
-            />
+              required>
+              {variantImages.map((image) => (
+                <option key={image} value={image}>
+                  {image}
+                </option>
+              ))}
+            </select>
           </div>
 
           {selectedAttributes.map((attr) => (

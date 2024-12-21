@@ -54,7 +54,7 @@ export default function Page() {
               order={[
                 {
                   title: product.category.name,
-                  href: `/${product.category.id}`,
+                  href: `/${product.category.urlKey}`,
                 },
                 { title: product.name },
               ]}

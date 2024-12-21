@@ -1,13 +1,13 @@
-export default function CategoryListItem({ name, id }) {
+export default function CategoryListItem({ name, urlKey, image }) {
   return (
     <a
-      href={`/${id}`}
+      href={`/${urlKey}`}
       className="rounded-lg border border-gray-400 bg-white p-6 shadow-sm">
-      <div className="h-56">
+      <div className="h-28">
         <img
           className="mx-auto h-full"
-          src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg"
-          alt=""
+          src={`${window.origin}/api/files/categories/${image}`}
+          alt={name}
         />
       </div>
       <div className="pt-6">

@@ -10,7 +10,7 @@ export default function CategoryForm({ onSubmit, initialData = {} }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ name, description, image });
+    onSubmit({ name, urlKey, description, image });
   };
 
   const handleFileUpload = async (e, setter) => {

@@ -10,14 +10,15 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER.UNSIGNED,
       },
-      categoryId: {
+      categoryKey: {
         allowNull: false,
-        type: Sequelize.INTEGER.UNSIGNED,
+        type: Sequelize.STRING,
         references: {
           model: 'Categories',
-          key: 'id',
+          key: 'urlKey',
         },
         onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       name: {
         allowNull: false,

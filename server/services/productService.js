@@ -8,23 +8,11 @@ const {
   ProductImage,
 } = require('../models');
 
-const findAll = async (where = null) => {
-  if (!where) {
+const findAll = async (options = null) => {
+  if (!options) {
     return await Product.findAll();
   }
-  return await Product.findAll({ where });
-};
-
-const searchByName = async (query) => {
-  if (!query) {
-    return await findAll();
-  }
-
-  return Product.findAll({
-    where: {
-      name: { [Op.like]: `%${query}%` },
-    },
-  });
+  return await Product.findAll({ ...options });
 };
 
 const create = async (data) => {
@@ -65,7 +53,6 @@ const findOne = async (where) => {
 
 module.exports = {
   findAll,
-  searchByName,
   create,
   findOne,
 };

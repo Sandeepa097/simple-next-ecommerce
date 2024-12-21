@@ -18,8 +18,9 @@ export default function CategoryListing() {
         {categories.map((category) => (
           <CategoryListItem
             key={category.id}
-            id={category.id}
+            urlKey={category.urlKey}
             name={category.name}
+            image={category.image}
           />
         ))}
       </div>

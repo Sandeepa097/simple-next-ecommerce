@@ -28,14 +28,14 @@ export default async function handler(req, res) {
 }
 
 async function post(req, res) {
-  const { name, urlKey, description, categoryId, images, image, variants } =
+  const { name, urlKey, description, categoryKey, images, image, variants } =
     req.body;
 
   try {
     const imageId = await fileService.moveTemp(image, 'storage/products');
 
     const product = await productService.create({
-      categoryId,
+      categoryKey,
       name,
       urlKey,
       description,
@@ -76,6 +76,6 @@ async function post(req, res) {
     res.status(201).json({ message: 'Product created successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Failed to create product' });
+    res.status(500).json({ message: 'Failed to create product: ' + error });
   }
 }

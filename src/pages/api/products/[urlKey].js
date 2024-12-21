@@ -2,12 +2,12 @@ const { findOne } = require('../../../../server/services/productService');
 
 export default async function handler(req, res) {
   const { method } = req;
-  const { id } = req.query;
+  const { urlKey } = req.query;
 
   switch (method) {
     case 'GET':
       try {
-        const product = await findOne({ id });
+        const product = await findOne({ urlKey });
         res.status(200).json(product);
       } catch (error) {
         console.log('error: ', error);

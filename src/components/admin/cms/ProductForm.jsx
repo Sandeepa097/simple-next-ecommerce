@@ -10,13 +10,31 @@ export default function ProductForm() {
   const [name, setName] = useState('');
   const [urlKey, setUrlKey] = useState('');
   const [description, setDescription] = useState('');
-  const [categoryId, setCategoryId] = useState('');
+  const [categoryKey, setCategoryKey] = useState('');
   const [image, setImage] = useState(null);
   const [images, setImages] = useState([]);
   const [selectedAttributes, setSelectedAttributes] = useState([]);
   const [variants, setVariants] = useState([]);
 
-  const handleFileUpload = async (e, setter) => {
+  const imagesSetter = (file) => {
+    setImages([...images, file]);
+  };
+
+  const handleFileUpload = async (e, setter, multiple = false) => {
+    if (multiple) {
+      Array.from(e.target.files).forEach((file) => {
+        handleFileUpload(
+          {
+            ...e,
+            target: {
+              ...e.target,
+              files: [file],
+            },
+          },
+          setter
+        );
+      });
+    }
     const formData = new FormData();
     formData.append('file', e.target.files[0]);
 
@@ -42,8 +60,9 @@ export default function ProductForm() {
         name,
         urlKey,
         description,
-        categoryId,
+        categoryKey,
         image,
+        images,
         selectedAttributes,
         variants,
       }),
@@ -117,7 +136,7 @@ export default function ProductForm() {
         <label className="block text-sm font-medium">URL Key</label>
         <input
           type="text"
-          value={name}
+          value={urlKey}
           onChange={(e) => setUrlKey(e.target.value)}
           className="w-full mt-1 border rounded p-2"
           required
@@ -138,12 +157,12 @@ export default function ProductForm() {
       <div>
         <label className="block text-sm font-medium">Category</label>
         <select
-          value={categoryId}
-          onChange={(e) => setCategoryId(e.target.value)}
+          value={categoryKey}
+          onChange={(e) => setCategoryKey(e.target.value)}
           className="w-full mt-1 border rounded p-2"
           required>
           {categories.map((category) => (
-            <option key={category.id} value={category.id}>
+            <option key={category.id} value={category.urlKey}>
               {category.name}
             </option>
           ))}
@@ -166,9 +185,7 @@ export default function ProductForm() {
         </label>
         <input
           type="file"
-          onChange={(e) => {
-            console.log('e', e);
-          }}
+          onChange={(e) => handleFileUpload(e, imagesSetter, true)}
           className="w-full mt-1 border rounded p-2"
           multiple
         />
@@ -186,6 +203,7 @@ export default function ProductForm() {
         selectedAttributes={attributes.filter((attribute) =>
           selectedAttributes.includes(attribute.id)
         )}
+        variantImages={images}
         variants={variants}
         setVariants={setVariants}
       />
