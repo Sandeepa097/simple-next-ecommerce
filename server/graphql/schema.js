@@ -5,18 +5,50 @@ const typeDefs = gql`
     TITLE
     UPDATED_AT
     PRICE
+    RELEVANCE
+  }
+
+  enum ProductSortKeys {
+    TITLE
+    UPDATED_AT
+    PRICE
+    RELEVANCE
+  }
+
+  enum TITLE {
+    TITLE
   }
 
   type Query {
-    collection(
-      handle: String!
-      sortKey: ProductCollectionSortKeys
-      reverse: Boolean
-    ): Collection
+    collections(first: Int, sortKey: TITLE): CollectionConnection
+    collection(handle: String!): Collection
     menu(handle: String!): Menu
+    pageByHandle(handle: String!): Page
+    pages(first: Int): PageConnection
+    product(handle: String!): Product
+    products(
+      sortKey: ProductSortKeys
+      reverse: Boolean
+      query: String
+      first: Int
+    ): ProductConnection
+    productRecommendations(productId: ID!): [Product]
+  }
+
+  type CollectionConnection {
+    edges: [CollectionEdge]
+  }
+
+  type CollectionEdge {
+    node: Collection
   }
 
   type Collection {
+    handle: String
+    title: String
+    description: String
+    seo: SEO
+    updatedAt: String
     products(
       sortKey: ProductCollectionSortKeys
       reverse: Boolean
@@ -25,12 +57,17 @@ const typeDefs = gql`
   }
 
   type Menu {
-    items: [MenuItem!]!
+    items: [MenuItem]
   }
 
   type MenuItem {
-    title: String!
-    url: String!
+    title: String
+    url: String
+  }
+
+  type SEO {
+    description: String
+    title: String
   }
 
   type ProductConnection {
@@ -42,36 +79,36 @@ const typeDefs = gql`
   }
 
   type Product {
-    id: ID!
-    handle: String!
-    availableForSale: Boolean!
-    title: String!
-    description: String!
-    descriptionHtml: String!
-    options: [ProductOption!]
-    priceRange: PriceRange!
-    variants(first: Int): VariantConnection!
+    id: ID
+    handle: String
+    availableForSale: Boolean
+    title: String
+    description: String
+    descriptionHtml: String
+    options: [ProductOption]
+    priceRange: PriceRange
+    variants(first: Int): VariantConnection
     featuredImage: Image
-    images(first: Int): ImageConnection!
-    seo: SEO!
-    tags: [String!]!
-    updatedAt: String!
+    images(first: Int): ImageConnection
+    seo: SEO
+    tags: [String]
+    updatedAt: String
   }
 
   type ProductOption {
-    id: ID!
-    name: String!
-    values: [String!]!
+    id: ID
+    name: String
+    values: [String]
   }
 
   type PriceRange {
-    maxVariantPrice: Price!
-    minVariantPrice: Price!
+    maxVariantPrice: Price
+    minVariantPrice: Price
   }
 
   type Price {
-    amount: String!
-    currencyCode: String!
+    amount: String
+    currencyCode: String
   }
 
   type VariantConnection {
@@ -83,16 +120,16 @@ const typeDefs = gql`
   }
 
   type Variant {
-    id: ID!
-    title: String!
-    availableForSale: Boolean!
-    selectedOptions: [SelectedOption!]
-    price: Price!
+    id: ID
+    title: String
+    availableForSale: Boolean
+    selectedOptions: [SelectedOption]
+    price: Price
   }
 
   type SelectedOption {
-    name: String!
-    value: String!
+    name: String
+    value: String
   }
 
   type ImageConnection {
@@ -104,15 +141,29 @@ const typeDefs = gql`
   }
 
   type Image {
-    url: String!
+    url: String
     altText: String
     width: Int
     height: Int
   }
 
-  type SEO {
-    description: String!
-    title: String!
+  type Page {
+    id: ID!
+    title: String
+    handle: String
+    body: String
+    bodySummary: String
+    seo: SEO
+    createdAt: String
+    updatedAt: String
+  }
+
+  type PageEdge {
+    node: Page
+  }
+
+  type PageConnection {
+    edges: [PageEdge]
   }
 `;
 
