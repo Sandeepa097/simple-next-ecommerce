@@ -7,11 +7,38 @@ const {
   Page,
 } = require('../models');
 
-const orderDecider = (shortKey) => {
+const orderDecider = (shortKey, query = '') => {
   if (shortKey && shortKey.name) {
-    return [[shortKey.name, shortKey.reverse ? 'DESC' : 'ASC']];
+    if (shortKey.name === 'relevance') {
+      return propertiesToOrderByRelevance(query);
+    }
+    return { order: [[shortKey.name, shortKey.reverse ? 'DESC' : 'ASC']] };
   }
-  return [];
+  return {};
+};
+
+const propertiesToOrderByRelevance = (query) => {
+  if (!query) return {};
+
+  return {
+    where: {
+      [Op.and]: Sequelize.literal(
+        `MATCH(title) AGAINST(:query IN NATURAL LANGUAGE MODE)`
+      ),
+    },
+    attributes: {
+      include: [
+        [
+          Sequelize.literal(
+            `MATCH(title) AGAINST(:query IN NATURAL LANGUAGE MODE)`
+          ),
+          'relevanceScore',
+        ],
+      ],
+    },
+    order: [['relevanceScore', 'DESC']],
+    replacements: { query },
+  };
 };
 
 const getCollections = async (first, shortKey) => {
