@@ -10,31 +10,62 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER.UNSIGNED,
       },
-      categoryKey: {
-        allowNull: false,
-        type: Sequelize.STRING,
+      collectionId: {
+        allowNull: true,
+        type: Sequelize.INTEGER.UNSIGNED,
         references: {
           model: 'Categories',
           key: 'urlKey',
         },
-        onDelete: 'CASCADE',
+        onDelete: 'SET NULL',
         onUpdate: 'CASCADE',
       },
-      name: {
+      handle: {
         allowNull: false,
         unique: true,
         type: Sequelize.STRING,
       },
-      urlKey: {
+      title: {
         allowNull: false,
-        unique: true,
         type: Sequelize.STRING,
       },
       description: {
         allowNull: false,
         type: Sequelize.TEXT,
       },
-      image: {
+      descriptionHtml: {
+        allowNull: true,
+        type: Sequelize.TEXT,
+      },
+      availableForSale: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+      },
+      featuredImageUrl: {
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
+      featuredImageAltText: {
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
+      featuredImageWidth: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+      },
+      featuredImageHeight: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+      },
+      tags: {
+        allowNull: true,
+        type: Sequelize.JSON,
+      },
+      seoDescription: {
+        allowNull: true,
+        type: Sequelize.TEXT,
+      },
+      seoTitle: {
         allowNull: true,
         type: Sequelize.STRING,
       },

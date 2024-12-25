@@ -19,18 +19,21 @@ module.exports = {
         },
         onDelete: 'CASCADE',
       },
+      title: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      availableForSale: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+      },
+      currencyCode: {
+        allowNull: false,
+        type: Sequelize.STRING(3),
+      },
       price: {
         allowNull: false,
         type: Sequelize.DECIMAL(10, 2),
-      },
-      isAvailable: {
-        allowNull: false,
-        defaultValue: true,
-        type: Sequelize.BOOLEAN,
-      },
-      variantImage: {
-        allowNull: true,
-        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

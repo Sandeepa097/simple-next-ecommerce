@@ -8,7 +8,7 @@ const {
   DB_USER,
 } = require('../config/config');
 const User = require('./User');
-const Category = require('./Category');
+const Collection = require('./Collection');
 const Product = require('./Product');
 const Attribute = require('./Attribute');
 const ProductVariant = require('./ProductVariant');
@@ -26,7 +26,7 @@ const sequelizeConnection = new Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
 
 const models = {
   User: User(sequelizeConnection, Sequelize.DataTypes),
-  Category: Category(sequelizeConnection, Sequelize.DataTypes),
+  Collection: Collection(sequelizeConnection, Sequelize.DataTypes),
   Product: Product(sequelizeConnection, Sequelize.DataTypes),
   Attribute: Attribute(sequelizeConnection, Sequelize.DataTypes),
   ProductVariant: ProductVariant(sequelizeConnection, Sequelize.DataTypes),
