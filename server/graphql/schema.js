@@ -1,26 +1,27 @@
 const { gql } = require('apollo-server-micro');
 
 const typeDefs = gql`
+  enum CollectionSortKeys {
+    TITLE = 'title'
+    UPDATED_AT = 'updatedAt'
+  }
+
   enum ProductCollectionSortKeys {
-    TITLE
-    UPDATED_AT
-    PRICE
-    RELEVANCE
+    TITLE = 'title'
+    UPDATED_AT = 'updatedAt'
+    PRICE = 'price'
+    RELEVANCE = 'relevance'
   }
 
   enum ProductSortKeys {
-    TITLE
-    UPDATED_AT
-    PRICE
-    RELEVANCE
-  }
-
-  enum TITLE {
-    TITLE
+    TITLE = 'title'
+    UPDATED_AT = 'updatedAt'
+    PRICE = 'price'
+    RELEVANCE = 'relevance'
   }
 
   type Query {
-    collections(first: Int, sortKey: TITLE): CollectionConnection
+    collections(first: Int, sortKey: CollectionSortKeys): CollectionConnection
     collection(handle: String!): Collection
     menu(handle: String!): Menu
     pageByHandle(handle: String!): Page
