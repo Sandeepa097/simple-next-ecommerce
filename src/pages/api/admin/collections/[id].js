@@ -2,7 +2,7 @@ const {
   update,
   destroy,
   findOne,
-} = require('../../../../../server/services/categoryService');
+} = require('../../../../../server/services/collectionService');
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -11,10 +11,10 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET':
       try {
-        const category = await findOne({ id });
-        res.status(200).json(category);
+        const collection = await findOne({ id });
+        res.status(200).json(collection);
       } catch (error) {
-        res.status(500).json({ message: 'Error fetching category' });
+        res.status(500).json({ message: 'Error fetching collection' });
       }
       break;
 
@@ -22,18 +22,18 @@ export default async function handler(req, res) {
       try {
         const { name, urlKey, description } = req.body;
         await update({ name, urlKey, description }, { id });
-        res.status(200).json({ message: 'Category updated' });
+        res.status(200).json({ message: 'Collection updated' });
       } catch (error) {
-        res.status(500).json({ message: 'Error updating category' });
+        res.status(500).json({ message: 'Error updating collection' });
       }
       break;
 
     case 'DELETE':
       try {
         await destroy({ id });
-        res.status(200).json({ message: 'Category deleted' });
+        res.status(200).json({ message: 'Collection deleted' });
       } catch (error) {
-        res.status(500).json({ message: 'Error deleting category' });
+        res.status(500).json({ message: 'Error deleting collection' });
       }
       break;
 

@@ -11,15 +11,15 @@ import ProductSearchBar from '../../components/frontStore/ProductSearchBar';
 
 export default function Page() {
   const params = useParams();
-  const [category, setCategory] = useState(null);
+  const [collection, setCollection] = useState(null);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch(`/api/categories/${params.category}`)
+    fetch(`/api/collections/${params.collection}`)
       .then((res) => res.json())
-      .then((data) => setCategory(data));
+      .then((data) => setCollection(data));
 
-    fetch(`/api/categories/${params.category}/products`)
+    fetch(`/api/collections/${params.collection}/products`)
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, [params]);
@@ -29,7 +29,7 @@ export default function Page() {
       <section className="py-2 antialiased bg-gray-50">
         <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
           <div className="mb-4 items-end justify-between space-y-4 sm:flex sm:space-y-0 md:mb-8">
-            <ProductListingNavBar order={[{ title: category?.name }]} />
+            <ProductListingNavBar order={[{ title: collection?.name }]} />
             <div className="flex items-center space-x-4">
               <ProductSearchBar />
               <ProductFilterButton title="Filters" Icon={FilterButtonIcon} />

@@ -10,7 +10,7 @@ export default function ProductForm() {
   const [name, setName] = useState('');
   const [urlKey, setUrlKey] = useState('');
   const [description, setDescription] = useState('');
-  const [categoryKey, setCategoryKey] = useState('');
+  const [collectionKey, setCollectionKey] = useState('');
   const [image, setImage] = useState(null);
   const [images, setImages] = useState([]);
   const [selectedAttributes, setSelectedAttributes] = useState([]);
@@ -60,7 +60,7 @@ export default function ProductForm() {
         name,
         urlKey,
         description,
-        categoryKey,
+        collectionKey,
         image,
         images,
         selectedAttributes,
@@ -76,7 +76,7 @@ export default function ProductForm() {
   };
 
   async function fetchCategories() {
-    const res = await fetch('/api/admin/categories', {
+    const res = await fetch('/api/admin/collections', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -155,15 +155,15 @@ export default function ProductForm() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium">Category</label>
+        <label className="block text-sm font-medium">Collection</label>
         <select
-          value={categoryKey}
-          onChange={(e) => setCategoryKey(e.target.value)}
+          value={collectionKey}
+          onChange={(e) => setCollectionKey(e.target.value)}
           className="w-full mt-1 border rounded p-2"
           required>
-          {categories.map((category) => (
-            <option key={category.id} value={category.urlKey}>
-              {category.name}
+          {categories.map((collection) => (
+            <option key={collection.id} value={collection.urlKey}>
+              {collection.name}
             </option>
           ))}
         </select>

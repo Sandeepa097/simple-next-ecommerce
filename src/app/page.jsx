@@ -1,4 +1,4 @@
-import CategoryListing from '../components/frontStore/CategoryListing';
+import CollectionListing from '../components/frontStore/CollectionListing';
 import LatestArrivalListing from '../components/frontStore/LatestArrivalsListing';
 import ProductListingNavBar from '../components/frontStore/ProductListingNavBar';
 import ProductSearchBar from '../components/frontStore/ProductSearchBar';
@@ -16,7 +16,7 @@ export default function Page() {
           </div>
         </div>
         <div className="px-4">
-          <CategoryListing />
+          <CollectionListing />
         </div>
         <div className="px-4">
           <LatestArrivalListing />

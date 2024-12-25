@@ -1,7 +1,7 @@
 const {
   findAll,
   create,
-} = require('../../../../server/services/categoryService');
+} = require('../../../../server/services/collectionService');
 const { moveTemp } = require('../../../../server/services/fileService');
 
 export default async function handler(req, res) {
@@ -20,16 +20,18 @@ export default async function handler(req, res) {
     case 'POST':
       try {
         const { name, urlKey, description, image } = req.body;
-        const imageId = await moveTemp(image, 'storage/categories');
-        const category = await create({
+        const imageId = await moveTemp(image, 'storage/collections');
+        const collection = await create({
           name,
           urlKey,
           description,
           image: imageId,
         });
-        res.status(201).json(category);
+        res.status(201).json(collection);
       } catch (error) {
-        res.status(500).json({ message: 'Error creating category: ' + error });
+        res
+          .status(500)
+          .json({ message: 'Error creating collection: ' + error });
       }
       break;
 

@@ -1,4 +1,4 @@
-export default function CategoryListItem({ name, urlKey, image }) {
+export default function CollectionListItem({ name, urlKey, image }) {
   return (
     <a
       href={`/${urlKey}`}
@@ -6,7 +6,7 @@ export default function CategoryListItem({ name, urlKey, image }) {
       <div className="h-28">
         <img
           className="mx-auto h-full"
-          src={`${window.origin}/api/files/categories/${image}`}
+          src={`${window.origin}/api/files/collections/${image}`}
           alt={name}
         />
       </div>

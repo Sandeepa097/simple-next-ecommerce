@@ -1,7 +1,7 @@
 'use client';
 
 import AttributeMenuIcon from '../../icons/AttributeMenuIcon';
-import CategoryMenuIcon from '../../icons/CategoryMenuIcon';
+import CollectionMenuIcon from '../../icons/CollectionMenuIcon';
 import ProductMenuIcon from '../../icons/ProductMenuIcon';
 import SettingMenuIcon from '../../icons/SettingMenuIcon';
 import NavigationItem from './NavigationItem';
@@ -17,8 +17,8 @@ export default function NavigationMenu({ children }) {
     {
       id: 2,
       title: 'Categories',
-      Icon: CategoryMenuIcon,
-      url: '/admin/categories',
+      Icon: CollectionMenuIcon,
+      url: '/admin/collections',
     },
     {
       id: 3,

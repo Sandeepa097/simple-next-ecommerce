@@ -1,4 +1,4 @@
-export default function CategoryMenuIcon() {
+export default function CollectionMenuIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

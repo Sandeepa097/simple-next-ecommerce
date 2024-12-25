@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import CategoryListItem from './CategoryListItem';
+import CollectionListItem from './CollectionListItem';
 
-export default function CategoryListing() {
+export default function CollectionListing() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch('/api/categories')
+    fetch('/api/collections')
       .then((res) => res.json())
       .then((data) => setCategories(data));
   }, []);
@@ -15,12 +15,12 @@ export default function CategoryListing() {
   return (
     <div>
       <div className="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
-        {categories.map((category) => (
-          <CategoryListItem
-            key={category.id}
-            urlKey={category.urlKey}
-            name={category.name}
-            image={category.image}
+        {categories.map((collection) => (
+          <CollectionListItem
+            key={collection.id}
+            urlKey={collection.urlKey}
+            name={collection.name}
+            image={collection.image}
           />
         ))}
       </div>

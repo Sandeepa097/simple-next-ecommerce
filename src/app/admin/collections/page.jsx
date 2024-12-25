@@ -1,4 +1,4 @@
-import CategoryListing from '../../../components/admin/cms/CategoryListing';
+import CollectionListing from '../../../components/admin/cms/CollectionListing';
 import MenuContentHeader from '../../../components/admin/cms/MenuContentHeader';
 
 export default function Page() {
@@ -6,9 +6,9 @@ export default function Page() {
     <div>
       <MenuContentHeader
         title="Categories"
-        button={{ text: 'New Category', href: '/admin/categories/new' }}
+        button={{ text: 'New Collection', href: '/admin/collections/new' }}
       />
-      <CategoryListing />
+      <CollectionListing />
     </div>
   );
 }

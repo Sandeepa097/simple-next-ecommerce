@@ -53,8 +53,8 @@ export default function Page() {
             <ProductListingNavBar
               order={[
                 {
-                  title: product.category.name,
-                  href: `/${product.category.urlKey}`,
+                  title: product.collection.name,
+                  href: `/${product.collection.urlKey}`,
                 },
                 { title: product.name },
               ]}

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export default function CategoryForm({ onSubmit, initialData = {} }) {
+export default function CollectionForm({ onSubmit, initialData = {} }) {
   const [name, setName] = useState(initialData.name || '');
   const [urlKey, setUrlKey] = useState(initialData.urlKey || '');
   const [image, setImage] = useState(initialData.name || '');
