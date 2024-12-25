@@ -13,11 +13,11 @@ const {
 } = require('../services/graphqlService');
 
 const getHeaderMenu = async () => {
-  const firstTwoCollections = await getCollections(2);
+  const firstTwoCollections = await getCollections(4);
   return [
     { title: 'All', url: '/collections' },
     ...firstTwoCollections.map((collection) => ({
-      title: collection.name,
+      title: collection.title,
       url: `/collections/${collection.handle}`,
     })),
   ];
@@ -50,12 +50,14 @@ const resolvers = {
     menu: async (_, { handle }) => {
       const isHeaderMenu = handle === 'next-js-frontend-header-menu';
 
-      return isHeaderMenu
+      const menuItems = isHeaderMenu
         ? await getHeaderMenu()
         : (await getPages(5)).map((page) => ({
             title: page.title,
             url: `/${page.handle}`,
           }));
+
+      return { items: menuItems };
     },
     product: async (_, { handle }) => {
       return await findProduct(handle);
@@ -111,6 +113,22 @@ const resolvers = {
         })),
       };
     },
+  },
+  CollectionSortKeys: {
+    TITLE: 'title',
+    UPDATED_AT: 'updatedAt',
+  },
+  ProductCollectionSortKeys: {
+    TITLE: 'title',
+    UPDATED_AT: 'updatedAt',
+    PRICE: 'price',
+    RELEVANCE: 'relevance',
+  },
+  ProductSortKeys: {
+    TITLE: 'title',
+    UPDATED_AT: 'updatedAt',
+    PRICE: 'price',
+    RELEVANCE: 'relevance',
   },
 };
 

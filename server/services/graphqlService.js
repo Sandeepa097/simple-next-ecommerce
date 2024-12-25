@@ -1,4 +1,4 @@
-const { Op } = require('sequelize');
+const { Op, Sequelize } = require('sequelize');
 const {
   Collection,
   Product,
@@ -55,12 +55,9 @@ const findCollection = async (handle) => {
 };
 
 const getRandomCollection = async () => {
-  return (
-    await Collection.findAll({
-      order: [[Sequelize.fn('RANDOM')]],
-      limit: 1,
-    })
-  )[0];
+  return await Collection.findOne({
+    order: Sequelize.literal('rand()'),
+  });
 };
 
 const getCollectionProducts = async (collectionId, first, shortKey) => {
@@ -81,11 +78,15 @@ const getProducts = async (first, shortKey, query) => {
   return await Product.findAll({
     limit: first,
     ...orderDecider(shortKey),
-    where: {
-      name: {
-        [Op.iLike]: `%${query}%`,
-      },
-    },
+    ...(query
+      ? {
+          where: {
+            name: {
+              [Op.iLike]: `%${query}%`,
+            },
+          },
+        }
+      : {}),
   });
 };
 

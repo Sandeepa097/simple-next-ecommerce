@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       handle: DataTypes.STRING,
       title: DataTypes.STRING,
       body: DataTypes.TEXT,
-      bodySummery: DataTypes.TEXT,
+      bodySummary: DataTypes.TEXT,
       seoDescription: DataTypes.TEXT,
       seoTitle: DataTypes.STRING,
       seo: {
