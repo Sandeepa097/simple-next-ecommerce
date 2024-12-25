@@ -15,10 +15,9 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED,
         references: {
           model: 'Collections',
-          key: 'urlKey',
+          key: 'id',
         },
         onDelete: 'SET NULL',
-        onUpdate: 'CASCADE',
       },
       handle: {
         allowNull: false,

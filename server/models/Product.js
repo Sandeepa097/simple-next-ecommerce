@@ -10,8 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       models.Product.belongsTo(models.Collection, {
-        foreignKey: 'collectionKey',
-        targetKey: 'urlKey',
+        foreignKey: 'collectionId',
         as: 'collection',
       });
 
