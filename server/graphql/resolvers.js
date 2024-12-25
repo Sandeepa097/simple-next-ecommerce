@@ -36,6 +36,16 @@ const dummyData = {
               ],
               price: { amount: '60.00', currencyCode: 'USD' },
             },
+            {
+              id: 'variant-2-id',
+              title: 'Blue / M',
+              availableForSale: true,
+              selectedOptions: [
+                { name: 'Color', value: 'Blue' },
+                { name: 'Size', value: 'M' },
+              ],
+              price: { amount: '60.00', currencyCode: 'USD' },
+            },
           ],
           featuredImage: {
             url: 'https://example.com/image1.jpg',
@@ -180,6 +190,16 @@ const dummyData = {
               selectedOptions: [
                 { name: 'Color', value: 'Red' },
                 { name: 'Size', value: 'S' },
+              ],
+              price: { amount: '60.00', currencyCode: 'USD' },
+            },
+            {
+              id: 'variant-2-id',
+              title: 'Blue / M',
+              availableForSale: true,
+              selectedOptions: [
+                { name: 'Color', value: 'Blue' },
+                { name: 'Size', value: 'M' },
               ],
               price: { amount: '60.00', currencyCode: 'USD' },
             },
