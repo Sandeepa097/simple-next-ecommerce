@@ -112,23 +112,7 @@ const viewTemp = async (tempId) => {
   };
 };
 
-const viewCategory = async (categoryFileId) => {
-  const filePath = path.join(
-    process.cwd(),
-    'storage/categories',
-    categoryFileId
-  );
-  const contentType = mime.lookup(categoryFileId);
-
-  if (!contentType || !fs.existsSync(filePath)) return false;
-
-  return {
-    content: await readFilePromise(filePath),
-    contentType,
-  };
-};
-
-const viewProduct = async (productFileId) => {
+const viewProductImage = async (productFileId) => {
   const filePath = path.join(process.cwd(), 'storage/products', productFileId);
   const contentType = mime.lookup(productFileId);
 
@@ -145,6 +129,5 @@ module.exports = {
   moveTemp,
   clearTemp,
   viewTemp,
-  viewCategory,
-  viewProduct,
+  viewProductImage,
 };

@@ -1,23 +1,23 @@
-const { Category } = require('../models');
+const { Collection } = require('../models');
 
 const findAll = async () => {
-  return await Category.findAll();
+  return await Collection.findAll();
 };
 
 const findOne = async (where) => {
-  return await Category.findOne({ where });
+  return await Collection.findOne({ where });
 };
 
 const create = async (data) => {
-  return await Category.create(data);
+  return await Collection.create(data);
 };
 
 const update = async (data, where) => {
-  return await Category.update(data, { where });
+  return await Collection.update(data, { where });
 };
 
 const destroy = async (where) => {
-  return await Category.destroy({ where });
+  return await Collection.destroy({ where });
 };
 
 module.exports = {
