@@ -3,19 +3,19 @@ const { gql } = require('apollo-server-micro');
 const typeDefs = gql`
   enum CollectionSortKeys {
     TITLE
-    UPDATED_AT
+    CREATED_AT
   }
 
   enum ProductCollectionSortKeys {
     TITLE
-    UPDATED_AT
+    CREATED_AT
     PRICE
     RELEVANCE
   }
 
   enum ProductSortKeys {
     TITLE
-    UPDATED_AT
+    CREATED_AT
     PRICE
     RELEVANCE
   }

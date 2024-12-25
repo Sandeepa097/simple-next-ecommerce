@@ -5,14 +5,18 @@ const {
   ProductVariant,
   ProductImage,
   Page,
+  ProductVariantAttributeValue,
+  Attribute,
 } = require('../models');
 
-const orderDecider = (shortKey, query = '') => {
-  if (shortKey && shortKey.name) {
-    if (shortKey.name === 'relevance') {
+const orderDecider = (sortKey, query = '') => {
+  if (sortKey && sortKey.name) {
+    if (sortKey.name === 'relevance') {
       return propertiesToOrderByRelevance(query);
+    } else if (sortKey.name === 'price') {
+      return propertiesToOrderByPrice(sortKey);
     }
-    return { order: [[shortKey.name, shortKey.reverse ? 'DESC' : 'ASC']] };
+    return { order: [[sortKey.name, sortKey.reverse ? 'DESC' : 'ASC']] };
   }
   return {};
 };
@@ -41,10 +45,23 @@ const propertiesToOrderByRelevance = (query) => {
   };
 };
 
-const getCollections = async (first, shortKey) => {
+const propertiesToOrderByPrice = (sortKey) => {
+  return {
+    subQuery: false,
+    attributes: {
+      include: [
+        [Sequelize.fn('MIN', Sequelize.col('variants.price')), 'minPrice'],
+      ],
+    },
+    group: ['Product.id'],
+    order: [[Sequelize.literal('minPrice'), sortKey.reverse ? 'DESC' : 'ASC']],
+  };
+};
+
+const getCollections = async (first, sortKey) => {
   return await Collection.findAll({
+    ...orderDecider(sortKey),
     limit: first,
-    ...orderDecider(shortKey),
   });
 };
 
@@ -60,39 +77,83 @@ const getRandomCollection = async () => {
   });
 };
 
-const getCollectionProducts = async (collectionId, first, shortKey) => {
+const getCollectionProducts = async (collectionId, first, sortKey) => {
   return await Product.findAll({
     where: { collectionId },
+    include: {
+      model: ProductVariant,
+      as: 'variants',
+      include: {
+        model: ProductVariantAttributeValue,
+        as: 'selectedOptions',
+        include: {
+          model: Attribute,
+          as: 'attribute',
+        },
+      },
+    },
+    ...orderDecider(sortKey),
     limit: first,
-    ...orderDecider(shortKey),
   });
 };
 
 const findProduct = async (handle) => {
   return await Product.findOne({
     where: { handle },
+    include: {
+      model: ProductVariant,
+      as: 'variants',
+      include: {
+        model: ProductVariantAttributeValue,
+        as: 'selectedOptions',
+        include: {
+          model: Attribute,
+          as: 'attribute',
+        },
+      },
+    },
   });
 };
 
-const getProducts = async (first, shortKey, query) => {
+const getProducts = async (first, sortKey, query) => {
   return await Product.findAll({
-    limit: first,
-    ...orderDecider(shortKey),
     ...(query
       ? {
           where: {
-            name: {
-              [Op.iLike]: `%${query}%`,
+            title: {
+              [Op.like]: `%${query}%`,
             },
           },
         }
       : {}),
+    include: {
+      model: ProductVariant,
+      as: 'variants',
+      include: {
+        model: ProductVariantAttributeValue,
+        as: 'selectedOptions',
+        include: {
+          model: Attribute,
+          as: 'attribute',
+        },
+      },
+    },
+    ...orderDecider(sortKey, query),
+    limit: first,
   });
 };
 
 const getProductVariants = async (productId, first) => {
   return await ProductVariant.findAll({
     where: { productId },
+    include: {
+      model: ProductVariantAttributeValue,
+      as: 'selectedOptions',
+      include: {
+        model: Attribute,
+        as: 'attribute',
+      },
+    },
     limit: first,
   });
 };
@@ -106,7 +167,19 @@ const getProductImages = async (productId, first) => {
 
 const getRandomProducts = async (first) => {
   return await Product.findAll({
-    order: [[Sequelize.fn('RANDOM')]],
+    include: {
+      model: ProductVariant,
+      as: 'variants',
+      include: {
+        model: ProductVariantAttributeValue,
+        as: 'selectedOptions',
+        include: {
+          model: Attribute,
+          as: 'attribute',
+        },
+      },
+    },
+    order: Sequelize.literal('rand()'),
     limit: first,
   });
 };

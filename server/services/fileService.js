@@ -112,6 +112,22 @@ const viewTemp = async (tempId) => {
   };
 };
 
+const viewCollectionImage = async (productFileId) => {
+  const filePath = path.join(
+    process.cwd(),
+    'storage/collections',
+    productFileId
+  );
+  const contentType = mime.lookup(productFileId);
+
+  if (!contentType || !fs.existsSync(filePath)) return false;
+
+  return {
+    content: await readFilePromise(filePath),
+    contentType,
+  };
+};
+
 const viewProductImage = async (productFileId) => {
   const filePath = path.join(process.cwd(), 'storage/products', productFileId);
   const contentType = mime.lookup(productFileId);
@@ -129,5 +145,6 @@ module.exports = {
   moveTemp,
   clearTemp,
   viewTemp,
+  viewCollectionImage,
   viewProductImage,
 };

@@ -23,16 +23,33 @@ const getHeaderMenu = async () => {
   ];
 };
 
+const includeProductVirtualFields = (product) => ({
+  ...product.dataValues,
+  seo: product.seo,
+  featuredImage: product.featuredImage,
+  variants: product.variants,
+  options: product.options,
+  priceRange: product.priceRange,
+  tags: product.tags,
+});
+
+const includeProductVariantVirtualFields = (variant) => ({
+  ...variant.dataValues,
+  selectedOptions: variant.selectedOptions,
+  price: variant.price,
+});
+
 const resolvers = {
   Query: {
-    collections: async (_, { first, shortKey }) => {
-      const collections = await getCollections(first, { name: shortKey });
+    collections: async (_, { first, sortKey }) => {
+      const collections = await getCollections(first, { name: sortKey });
 
       return {
         edges: collections.map((collection) => {
           return {
             node: {
               ...collection.dataValues,
+              seo: collection.seo,
             },
           };
         }),
@@ -60,16 +77,28 @@ const resolvers = {
       return { items: menuItems };
     },
     product: async (_, { handle }) => {
-      return await findProduct(handle);
+      const product = await findProduct(handle);
+      return {
+        ...includeProductVirtualFields(product),
+      };
     },
-    products: async (_, { shortKey, reverse, query, first }) => {
-      const edges = await getProducts(
+    products: async (_, { sortKey, reverse, query, first }) => {
+      console.log('resolve sort: ', sortKey);
+      const products = await getProducts(
         first,
-        { name: shortKey, reverse },
+        { name: sortKey, reverse },
         query
       );
 
-      return { edges };
+      return {
+        edges: products.map((product) => {
+          return {
+            node: {
+              ...includeProductVirtualFields(product),
+            },
+          };
+        }),
+      };
     },
     productRecommendations: async (_, { productId }) => {
       return await getRandomProducts(15);
@@ -79,7 +108,9 @@ const resolvers = {
     },
     pages: async (_, { first }) => {
       const pages = await getPages(first);
-      const edges = pages.map((page) => ({ node: page.dataValues }));
+      const edges = pages.map((page) => ({
+        node: { ...page.dataValues, seo: page.seo },
+      }));
 
       return { edges };
     },
@@ -92,16 +123,21 @@ const resolvers = {
       });
 
       return {
-        edges: products.map((product) => ({ node: product.dataValues })),
+        edges: products.map((product) => ({
+          node: {
+            ...includeProductVirtualFields(product),
+          },
+        })),
       };
     },
   },
   Product: {
     variants: async (product, { first }) => {
-      const variants = await getProductVariants(product.id, first);
       return {
-        edges: variants.map((variant) => ({
-          node: variant.dataValues,
+        edges: product.variants.slice(0, first).map((variant) => ({
+          node: {
+            ...includeProductVariantVirtualFields(variant),
+          },
         })),
       };
     },
@@ -116,17 +152,17 @@ const resolvers = {
   },
   CollectionSortKeys: {
     TITLE: 'title',
-    UPDATED_AT: 'updatedAt',
+    CREATED_AT: 'createdAt',
   },
   ProductCollectionSortKeys: {
     TITLE: 'title',
-    UPDATED_AT: 'updatedAt',
+    CREATED_AT: 'createdAt',
     PRICE: 'price',
     RELEVANCE: 'relevance',
   },
   ProductSortKeys: {
     TITLE: 'title',
-    UPDATED_AT: 'updatedAt',
+    CREATED_AT: 'createdAt',
     PRICE: 'price',
     RELEVANCE: 'relevance',
   },

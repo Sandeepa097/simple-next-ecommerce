@@ -1,5 +1,5 @@
 const {
-  viewCollectionImage,
+  viewProductImage,
 } = require('../../../../../server/services/fileService');
 
 export default async function handler(req, res) {
@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET':
       try {
-        const data = await viewCollectionImage(id);
+        const data = await viewProductImage(id);
         if (!data) {
           res.status(400).json({ message: 'File not found' });
         }

@@ -48,7 +48,12 @@ module.exports = (sequelize, DataTypes) => {
           };
         },
       },
-      tags: DataTypes.JSON,
+      tags: {
+        type: DataTypes.VIRTUAL,
+        get() {
+          return ['tag 1', `tag 2`, `tag 3`];
+        },
+      },
       seoDescription: DataTypes.TEXT,
       seoTitle: DataTypes.STRING,
       seo: {
@@ -63,39 +68,61 @@ module.exports = (sequelize, DataTypes) => {
       options: {
         type: DataTypes.VIRTUAL,
         get() {
-          if (!this.variants || this.variants.length === 0) return null;
+          if (!this.variants || this.variants.length === 0) return [];
 
-          const options = this.variants.reduce((acc, variant) => {
+          const optionsMap = this.variants.reduce((acc, variant) => {
             variant.selectedOptions.forEach((option) => {
               if (!acc[option.name]) {
-                acc[option.name] = [];
+                acc[option.name] = {
+                  id: option.id,
+                  name: option.name,
+                  values: [],
+                };
               }
 
-              if (!acc[option.name].includes(option.value)) {
-                acc[option.name].push(option.value);
+              if (!acc[option.name].values.includes(option.value)) {
+                acc[option.name].values.push(option.value);
               }
             });
 
             return acc;
           }, {});
 
-          return options;
+          return Object.values(optionsMap);
         },
       },
       priceRange: {
         type: DataTypes.VIRTUAL,
         get() {
-          if (!this.variants || this.variants.length === 0) return null;
+          if (!this.variants || this.variants.length === 0)
+            return {
+              minVariantPrice: {
+                amount: '0.00',
+                currencyCode: 'USD',
+              },
+              maxVariantPrice: {
+                amount: '0.00',
+                currencyCode: 'USD',
+              },
+            };
 
           const prices = this.variants.map((variant) =>
-            parseFloat(variant.price)
+            parseFloat(variant.price.amount)
           );
+
           const minPrice = Math.min(...prices);
           const maxPrice = Math.max(...prices);
 
-          return minPrice === maxPrice
-            ? `${minPrice.toFixed(2)}`
-            : `${minPrice.toFixed(2)} - ${maxPrice.toFixed(2)}`;
+          return {
+            minVariantPrice: {
+              amount: minPrice.toFixed(2),
+              currencyCode: this.variants[0].price.currencyCode,
+            },
+            maxVariantPrice: {
+              amount: maxPrice.toFixed(2),
+              currencyCode: this.variants[0].price.currencyCode,
+            },
+          };
         },
       },
     },
