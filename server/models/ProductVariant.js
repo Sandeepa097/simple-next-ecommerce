@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 
       models.ProductVariant.hasMany(models.ProductVariantAttributeValue, {
         foreignKey: 'productVariantId',
-        as: 'productVariantAttributeValues',
+        as: 'selectedOptions',
       });
     }
   }
@@ -24,9 +24,18 @@ module.exports = (sequelize, DataTypes) => {
   ProductVariant.init(
     {
       productId: DataTypes.INTEGER.UNSIGNED,
-      price: DataTypes.DECIMAL(10, 2),
-      isAvailable: DataTypes.BOOLEAN,
-      variantImage: DataTypes.STRING,
+      title: DataTypes.STRING,
+      availableForSale: DataTypes.BOOLEAN,
+      currencyCode: DataTypes.STRING(3),
+      price: {
+        type: DataTypes.DECIMAL(10, 2),
+        get() {
+          return {
+            amount: this.getDataValue('price'),
+            currencyCode: this.currencyCode,
+          };
+        },
+      },
     },
     {
       sequelize,

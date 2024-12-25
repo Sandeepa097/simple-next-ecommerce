@@ -8,7 +8,12 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {}
+    static associate(models) {
+      models.Collection.hasMany(models.Product, {
+        foreignKey: 'collectionId',
+        as: 'products',
+      });
+    }
   }
   Collection.init(
     {
@@ -17,10 +22,29 @@ module.exports = (sequelize, DataTypes) => {
       description: DataTypes.TEXT,
       seoDescription: DataTypes.TEXT,
       seoTitle: DataTypes.STRING,
+      seo: {
+        type: DataTypes.VIRTUAL,
+        get() {
+          return {
+            title: this.seoTitle,
+            description: this.seoDescription,
+          };
+        },
+      },
     },
     {
       sequelize,
       modelName: 'Collection',
+      hooks: {
+        beforeValidate(collection) {
+          if (!collection.handle && collection.title) {
+            collection.handle = collection.title
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, '-')
+              .replace(/^-+|-+$/g, '');
+          }
+        },
+      },
     }
   );
   return Collection;

@@ -24,6 +24,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       productVariantId: DataTypes.INTEGER.UNSIGNED,
       attributeId: DataTypes.INTEGER.UNSIGNED,
+      name: {
+        type: DataTypes.VIRTUAL,
+        get() {
+          return this.attribute.name;
+        },
+      },
       value: DataTypes.STRING,
     },
     {

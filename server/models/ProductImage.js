@@ -19,7 +19,10 @@ module.exports = (sequelize, DataTypes) => {
   ProductVariant.init(
     {
       productId: DataTypes.INTEGER.UNSIGNED,
-      image: DataTypes.STRING,
+      url: DataTypes.STRING,
+      altText: DataTypes.STRING,
+      width: DataTypes.INTEGER,
+      height: DataTypes.INTEGER,
     },
     {
       sequelize,

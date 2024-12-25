@@ -14,6 +14,7 @@ const Attribute = require('./Attribute');
 const ProductVariant = require('./ProductVariant');
 const ProductVariantAttributeValue = require('./ProductVariantAttributeValue');
 const ProductImage = require('./ProductImage');
+const Page = require('./Page');
 
 const sequelizeConnection = new Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
   host: DB_HOST,
@@ -35,6 +36,7 @@ const models = {
     Sequelize.DataTypes
   ),
   ProductImage: ProductImage(sequelizeConnection, Sequelize.DataTypes),
+  Page: Page(sequelizeConnection, Sequelize.DataTypes),
 };
 
 Object.keys(models).forEach((model) => {
