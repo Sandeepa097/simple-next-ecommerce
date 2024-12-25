@@ -2,7 +2,7 @@ export default function CollectionListItem({ collection, onEdit, onDelete }) {
   return (
     <div className="flex justify-between items-center p-4 border-b">
       <div>
-        <h3 className="font-bold">{collection.name}</h3>
+        <h3 className="font-bold">{collection.title}</h3>
         <p className="text-gray-600">{collection.description}</p>
       </div>
       <div className="flex space-x-2">

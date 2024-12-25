@@ -3,14 +3,13 @@
 import { useState } from 'react';
 
 export default function CollectionForm({ onSubmit, initialData = {} }) {
-  const [name, setName] = useState(initialData.name || '');
-  const [urlKey, setUrlKey] = useState(initialData.urlKey || '');
+  const [title, setTitle] = useState(initialData.title || '');
   const [image, setImage] = useState(initialData.name || '');
   const [description, setDescription] = useState(initialData.description || '');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ name, urlKey, description, image });
+    onSubmit({ name, description, image });
   };
 
   const handleFileUpload = async (e, setter) => {
@@ -33,20 +32,11 @@ export default function CollectionForm({ onSubmit, initialData = {} }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-sm font-medium">Name</label>
+        <label className="block text-sm font-medium">Title</label>
         <input
           type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full p-2 border rounded"
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium">URL Key</label>
-        <input
-          type="text"
-          value={urlKey}
-          onChange={(e) => setUrlKey(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           className="w-full p-2 border rounded"
         />
       </div>
