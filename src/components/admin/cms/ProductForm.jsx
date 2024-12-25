@@ -5,7 +5,7 @@ import AttributeSelector from './AttributeSelector';
 import ProductVariantForm from './ProductVariantForm';
 
 export default function ProductForm() {
-  const [categories, setCategories] = useState([]);
+  const [collections, setCollections] = useState([]);
   const [attributes, setAttributes] = useState([]);
   const [name, setName] = useState('');
   const [urlKey, setUrlKey] = useState('');
@@ -75,7 +75,7 @@ export default function ProductForm() {
     }
   };
 
-  async function fetchCategories() {
+  async function fetchCollections() {
     const res = await fetch('/api/admin/collections', {
       method: 'GET',
       headers: {
@@ -108,15 +108,15 @@ export default function ProductForm() {
   }
 
   useEffect(() => {
-    const setCategoriesAndAttributes = async () => {
-      const categoriesList = await fetchCategories();
+    const setCollectionsAndAttributes = async () => {
+      const collectionsList = await fetchCollections();
       const attributesList = await fetchAttributes();
 
-      setCategories(categoriesList);
+      setCollections(collectionsList);
       setAttributes(attributesList);
     };
 
-    setCategoriesAndAttributes();
+    setCollectionsAndAttributes();
   }, []);
 
   return (
@@ -161,7 +161,7 @@ export default function ProductForm() {
           onChange={(e) => setCollectionKey(e.target.value)}
           className="w-full mt-1 border rounded p-2"
           required>
-          {categories.map((collection) => (
+          {collections.map((collection) => (
             <option key={collection.id} value={collection.urlKey}>
               {collection.name}
             </option>

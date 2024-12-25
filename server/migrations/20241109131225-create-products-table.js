@@ -14,7 +14,7 @@ module.exports = {
         allowNull: true,
         type: Sequelize.INTEGER.UNSIGNED,
         references: {
-          model: 'Categories',
+          model: 'Collections',
           key: 'urlKey',
         },
         onDelete: 'SET NULL',

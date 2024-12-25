@@ -4,17 +4,17 @@ import { useEffect, useState } from 'react';
 import CollectionListItem from './CollectionListItem';
 
 export default function CollectionListing() {
-  const [categories, setCategories] = useState([]);
+  const [collections, setCollections] = useState([]);
 
   useEffect(() => {
     fetch('/api/admin/collections')
       .then((res) => res.json())
-      .then((data) => setCategories(data));
+      .then((data) => setCollections(data));
   }, []);
 
   const handleDelete = async (id) => {
     await fetch(`/api/admin/collections/${id}`, { method: 'DELETE' });
-    setCategories(categories.filter((collection) => collection.id !== id));
+    setCollections(collections.filter((collection) => collection.id !== id));
   };
 
   const handleEdit = (collection) => {
@@ -23,8 +23,8 @@ export default function CollectionListing() {
 
   return (
     <div>
-      {(!categories || !categories.length) && <span>No categories</span>}
-      {categories.map((collection) => (
+      {(!collections || !collections.length) && <span>No collections</span>}
+      {collections.map((collection) => (
         <CollectionListItem
           key={collection.id}
           collection={collection}

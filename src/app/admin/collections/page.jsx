@@ -5,7 +5,7 @@ export default function Page() {
   return (
     <div>
       <MenuContentHeader
-        title="Categories"
+        title="Collections"
         button={{ text: 'New Collection', href: '/admin/collections/new' }}
       />
       <CollectionListing />

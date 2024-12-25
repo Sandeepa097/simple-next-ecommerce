@@ -10,10 +10,10 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET':
       try {
-        const categories = await findAll();
-        res.status(200).json(categories);
+        const collections = await findAll();
+        res.status(200).json(collections);
       } catch (error) {
-        res.status(500).json({ message: 'Error fetching categories' });
+        res.status(500).json({ message: 'Error fetching collections' });
       }
       break;
 

@@ -16,7 +16,7 @@ export default function NavigationMenu({ children }) {
     },
     {
       id: 2,
-      title: 'Categories',
+      title: 'Collections',
       Icon: CollectionMenuIcon,
       url: '/admin/collections',
     },
