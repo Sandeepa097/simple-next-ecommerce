@@ -2,6 +2,7 @@
 
 import AttributeMenuIcon from '../../icons/AttributeMenuIcon';
 import CollectionMenuIcon from '../../icons/CollectionMenuIcon';
+import PageMenuIcon from '../../icons/PageMenuIcon';
 import ProductMenuIcon from '../../icons/ProductMenuIcon';
 import SettingMenuIcon from '../../icons/SettingMenuIcon';
 import NavigationItem from './NavigationItem';
@@ -28,6 +29,12 @@ export default function NavigationMenu({ children }) {
     },
     {
       id: 4,
+      title: 'Pages',
+      Icon: PageMenuIcon,
+      url: '/admin/pages',
+    },
+    {
+      id: 5,
       title: 'Settings',
       Icon: SettingMenuIcon,
       url: '/admin/settings',
