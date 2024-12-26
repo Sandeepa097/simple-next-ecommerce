@@ -27,9 +27,12 @@ const propertiesToOrderByRelevance = (query) => {
   return {
     subQuery: false,
     where: {
-      [Op.and]: Sequelize.literal(
-        `MATCH(Product.title, Product.description) AGAINST(:query IN NATURAL LANGUAGE MODE)`
-      ),
+      [Op.or]: [
+        Sequelize.literal(
+          `MATCH(Product.title, Product.description) AGAINST(:query IN NATURAL LANGUAGE MODE)`
+        ),
+        { title: { [Op.like]: `%${query}%` } },
+      ],
     },
     attributes: {
       include: [

@@ -78,12 +78,14 @@ const resolvers = {
     },
     product: async (_, { handle }) => {
       const product = await findProduct(handle);
+      if (!product) {
+        return null;
+      }
       return {
         ...includeProductVirtualFields(product),
       };
     },
     products: async (_, { sortKey, reverse, query, first }) => {
-      console.log('resolve sort: ', sortKey);
       const products = await getProducts(
         first,
         { name: sortKey, reverse },
