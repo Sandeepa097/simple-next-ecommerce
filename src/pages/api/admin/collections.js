@@ -19,13 +19,12 @@ export default async function handler(req, res) {
 
     case 'POST':
       try {
-        const { name, urlKey, description, image } = req.body;
-        const imageId = await moveTemp(image, 'storage/collections');
+        const { title, description, seoTitle, seoDescription } = req.body;
         const collection = await create({
-          name,
-          urlKey,
+          title,
           description,
-          image: imageId,
+          seoTitle,
+          seoDescription,
         });
         res.status(201).json(collection);
       } catch (error) {

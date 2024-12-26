@@ -20,8 +20,8 @@ export default async function handler(req, res) {
 
     case 'PUT':
       try {
-        const { name, urlKey, description } = req.body;
-        await update({ name, urlKey, description }, { id });
+        const { title, description, seoTitle, seoDescription } = req.body;
+        await update({ title, description, seoTitle, seoDescription }, { id });
         res.status(200).json({ message: 'Collection updated' });
       } catch (error) {
         res.status(500).json({ message: 'Error updating collection' });
