@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.VIRTUAL,
         get() {
           return {
-            url: this.featuredImageUrl,
+            url: `/api/files/products/${this.featuredImageUrl}`,
             altText: this.featuredImageAltText,
             width: this.featuredImageWidth,
             height: this.featuredImageHeight,

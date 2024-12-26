@@ -28,18 +28,37 @@ export default async function handler(req, res) {
 }
 
 async function post(req, res) {
-  const { name, urlKey, description, collectionKey, images, image, variants } =
-    req.body;
+  const {
+    title,
+    description,
+    descriptionHtml,
+    collectionId,
+    featuredImage,
+    images,
+    availableForSale,
+    seoTitle,
+    seoDescription,
+    variants,
+  } = req.body;
 
   try {
-    const imageId = await fileService.moveTemp(image, 'storage/products');
+    const featuredImageId = await fileService.moveTemp(
+      featuredImage,
+      'storage/products'
+    );
 
     const product = await productService.create({
-      collectionKey,
-      name,
-      urlKey,
+      collectionId,
+      title,
       description,
-      image: imageId,
+      descriptionHtml,
+      availableForSale,
+      seoTitle,
+      seoDescription,
+      featuredImageUrl: featuredImageId,
+      featuredImageAltText: title,
+      featuredImageWidth: 800,
+      featuredImageHeight: 800,
     });
 
     for (const productImage of images) {
@@ -50,18 +69,23 @@ async function post(req, res) {
 
       await productImageService.create({
         productId: product.id,
-        image: productImageId,
+        url: productImageId,
+        altText: product.title,
+        width: 800,
+        height: 800,
       });
     }
 
     for (const variant of variants) {
-      const { price, isAvailable, variantImage, ...attributes } = variant;
+      const { title, currencyCode, price, availableForSale, ...attributes } =
+        variant;
 
       const createdVariant = await productVariantService.create({
         productId: product.id,
+        title: title,
+        currencyCode,
         price,
-        isAvailable,
-        variantImage: variantImage,
+        availableForSale,
       });
 
       for (const [attrId, attrValue] of Object.entries(attributes)) {

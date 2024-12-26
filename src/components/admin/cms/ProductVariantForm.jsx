@@ -9,8 +9,10 @@ export default function ProductVariantForm({
     selectedAttributes.forEach((attr) => {
       newVariant[attr.id] = '';
     });
+    newVariant.title = '';
+    newVariant.currencyCode = 'LKR';
     newVariant.price = '';
-    newVariant.isAvailable = true;
+    newVariant.availableForSale = true;
     setVariants([...variants, newVariant]);
   };
 
@@ -26,35 +28,28 @@ export default function ProductVariantForm({
       {variants.map((variant, index) => (
         <div key={index} className="space-y-2 border p-4 rounded mt-4">
           <div>
-            <label className="block text-sm font-medium">Variant Photo</label>
-            <select
-              value={variant.variantImage}
+            <label className="block text-sm font-medium">Title</label>
+            <input
+              type="text"
+              value={variant.title}
               onChange={(e) =>
-                handleVariantChange(index, 'variantImage', e.target.value)
+                handleVariantChange(index, 'title', e.target.value)
               }
-              className="w-full mt-1 border rounded p-2"
-              required>
-              {variantImages.map((image) => (
-                <option key={image} value={image}>
-                  {image}
-                </option>
-              ))}
-            </select>
+              className="w-full p-2 border rounded"
+            />
           </div>
 
-          {selectedAttributes.map((attr) => (
-            <div key={attr.id}>
-              <label className="block text-sm font-medium">{attr.name}</label>
-              <input
-                type="text"
-                value={variant[attr.id]}
-                onChange={(e) =>
-                  handleVariantChange(index, attr.id, e.target.value)
-                }
-                className="w-full mt-1 border rounded p-2"
-              />
-            </div>
-          ))}
+          <div>
+            <label className="block text-sm font-medium">Currency Code</label>
+            <input
+              type="text"
+              value={variant.currencyCode}
+              onChange={(e) =>
+                handleVariantChange(index, 'currencyCode', e.target.value)
+              }
+              className="w-full p-2 border rounded"
+            />
+          </div>
 
           <div>
             <label className="block text-sm font-medium">Price</label>
@@ -70,23 +65,39 @@ export default function ProductVariantForm({
           </div>
 
           <div>
-            <label className="block text-sm font-medium">In Stock</label>
+            <label className="block text-sm font-medium">
+              Available For Sale
+            </label>
             <input
               type="checkbox"
-              checked={variant.isAvailable}
+              checked={variant.availableForSale}
               onChange={(e) =>
-                handleVariantChange(index, 'isAvailable', e.target.checked)
+                handleVariantChange(index, 'AvailableForSale', e.target.checked)
               }
               className="mt-1"
             />
           </div>
+
+          {selectedAttributes.map((attr) => (
+            <div key={attr.id}>
+              <label className="block text-sm font-medium">{attr.name}</label>
+              <input
+                type="text"
+                value={variant[attr.id]}
+                onChange={(e) =>
+                  handleVariantChange(index, attr.id, e.target.value)
+                }
+                className="w-full mt-1 border rounded p-2"
+              />
+            </div>
+          ))}
         </div>
       ))}
 
       <button
         type="button"
         onClick={handleAddVariant}
-        className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
+        className="mt-2 px-4 py-2 bg-green-500 text-white rounded">
         Add Variant
       </button>
     </div>

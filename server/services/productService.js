@@ -51,8 +51,18 @@ const findOne = async (where) => {
   });
 };
 
+const update = async (data, where) => {
+  return await Product.update(data, { where });
+};
+
+const destroy = async (where) => {
+  return await Product.destroy({ where });
+};
+
 module.exports = {
   findAll,
   create,
   findOne,
+  update,
+  destroy,
 };

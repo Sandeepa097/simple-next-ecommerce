@@ -7,12 +7,15 @@ import ProductVariantForm from './ProductVariantForm';
 export default function ProductForm() {
   const [collections, setCollections] = useState([]);
   const [attributes, setAttributes] = useState([]);
-  const [name, setName] = useState('');
-  const [urlKey, setUrlKey] = useState('');
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [collectionKey, setCollectionKey] = useState('');
-  const [image, setImage] = useState(null);
+  const [descriptionHtml, setDescriptionHtml] = useState('');
+  const [collectionId, setCollectionId] = useState('');
+  const [featuredImage, setFeaturedImage] = useState('');
   const [images, setImages] = useState([]);
+  const [availableForSale, setAvailableForSale] = useState(true);
+  const [seoTitle, setSeoTitle] = useState('');
+  const [seoDescription, setSeoDescription] = useState('');
   const [selectedAttributes, setSelectedAttributes] = useState([]);
   const [variants, setVariants] = useState([]);
 
@@ -57,13 +60,15 @@ export default function ProductForm() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name,
-        urlKey,
+        title,
         description,
-        collectionKey,
-        image,
+        descriptionHtml,
+        collectionId,
+        featuredImage,
         images,
-        selectedAttributes,
+        availableForSale,
+        seoTitle,
+        seoDescription,
         variants,
       }),
     });
@@ -122,22 +127,11 @@ export default function ProductForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-sm font-medium">Product Name</label>
+        <label className="block text-sm font-medium">Title</label>
         <input
           type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full mt-1 border rounded p-2"
-          required
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium">URL Key</label>
-        <input
-          type="text"
-          value={urlKey}
-          onChange={(e) => setUrlKey(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           className="w-full mt-1 border rounded p-2"
           required
         />
@@ -155,40 +149,80 @@ export default function ProductForm() {
       </div>
 
       <div>
+        <label className="block text-sm font-medium">Description HTML</label>
+        <textarea
+          value={descriptionHtml}
+          onChange={(e) => setDescriptionHtml(e.target.value)}
+          className="w-full mt-1 border rounded p-2"
+          rows="4"
+          required
+        />
+      </div>
+
+      <div>
         <label className="block text-sm font-medium">Collection</label>
         <select
-          value={collectionKey}
-          onChange={(e) => setCollectionKey(e.target.value)}
+          value={collectionId}
+          onChange={(e) => setCollectionId(e.target.value)}
           className="w-full mt-1 border rounded p-2"
           required>
           {collections.map((collection) => (
-            <option key={collection.id} value={collection.urlKey}>
-              {collection.name}
+            <option key={collection.id} value={collection.id}>
+              {collection.title}
             </option>
           ))}
         </select>
       </div>
 
       <div>
-        <label className="block text-sm font-medium">Product Image</label>
+        <label className="block text-sm font-medium">Featured Image</label>
         <input
           type="file"
-          onChange={(e) => handleFileUpload(e, setImage)}
+          onChange={(e) => handleFileUpload(e, setFeaturedImage)}
           className="w-full mt-1 border rounded p-2"
           required
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium">
-          Addition/Variant Images
-        </label>
+        <label className="block text-sm font-medium">Additional Images</label>
         <input
           type="file"
           onChange={(e) => handleFileUpload(e, imagesSetter, true)}
           className="w-full mt-1 border rounded p-2"
           multiple
         />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium">Available For Sale</label>
+        <input
+          type="checkbox"
+          value={availableForSale}
+          checked={availableForSale}
+          onChange={(e) => setAvailableForSale(e.target.checked)}
+          className="mt-1"
+        />
+      </div>
+
+      <div>
+        <div>SEO</div>
+        <div>
+          <label className="block text-sm font-medium">Title</label>
+          <input
+            type="text"
+            value={seoTitle}
+            onChange={(e) => setSeoTitle(e.target.value)}
+            className="w-full p-2 border rounded"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium">Description</label>
+          <textarea
+            value={seoDescription}
+            onChange={(e) => setSeoDescription(e.target.value)}
+            className="w-full p-2 border rounded"></textarea>
+        </div>
       </div>
 
       {/* Attribute Selector */}
@@ -210,7 +244,7 @@ export default function ProductForm() {
 
       <button
         type="submit"
-        className="w-full px-4 py-2 bg-green-500 text-white rounded">
+        className="w-full px-4 py-2 bg-blue-500 text-white rounded">
         Save Product
       </button>
     </form>

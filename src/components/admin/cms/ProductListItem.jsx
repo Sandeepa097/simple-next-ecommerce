@@ -1,9 +1,18 @@
 export default function ProductListItem({ product, onEdit, onDelete }) {
   return (
     <div className="flex justify-between items-center p-4 border-b">
-      <div>
-        <h3 className="font-bold">{product.name}</h3>
-        <p className="text-gray-600">{product.description}</p>
+      <div className="flex justify-start items-center gap-4">
+        <div>
+          <img
+            src={`/api/files/products/${product.featuredImageUrl}`}
+            alt={product.featuredImageAltText}
+            className="w-20 h-20 object-cover"
+          />
+        </div>
+        <div>
+          <h3 className="font-bold">{product.title}</h3>
+          <p className="text-gray-600">{product.description}</p>
+        </div>
       </div>
       <div className="flex space-x-2">
         <button
