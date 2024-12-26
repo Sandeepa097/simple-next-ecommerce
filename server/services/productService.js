@@ -10,9 +10,11 @@ const {
 
 const findAll = async (options = null) => {
   if (!options) {
-    return await Product.findAll();
+    return await Product.findAll({
+      order: [['createdAt', 'DESC']],
+    });
   }
-  return await Product.findAll({ ...options });
+  return await Product.findAll({ order: [['createdAt', 'DESC']], ...options });
 };
 
 const create = async (data) => {
@@ -25,23 +27,15 @@ const findOne = async (where) => {
     include: [
       {
         model: ProductVariant,
-        as: 'productVariants',
-        include: [
-          {
-            model: ProductVariantAttributeValue,
-            as: 'productVariantAttributeValues',
-            include: [
-              {
-                model: Attribute,
-                as: 'attribute',
-              },
-            ],
+        as: 'variants',
+        include: {
+          model: ProductVariantAttributeValue,
+          as: 'selectedOptions',
+          include: {
+            model: Attribute,
+            as: 'attribute',
           },
-        ],
-      },
-      {
-        model: Collection,
-        as: 'collection',
+        },
       },
       {
         model: ProductImage,

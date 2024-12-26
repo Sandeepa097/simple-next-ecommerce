@@ -1,7 +1,9 @@
 const { Page } = require('../models');
 
 const findAll = async () => {
-  return await Page.findAll();
+  return await Page.findAll({
+    order: [['title', 'ASC']],
+  });
 };
 
 const findOne = async (where) => {

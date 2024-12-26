@@ -20,6 +20,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       productId: DataTypes.INTEGER.UNSIGNED,
       url: DataTypes.STRING,
+      urlPath: {
+        type: DataTypes.VIRTUAL,
+        get() {
+          return `/api/files/products/${this.getDataValue('url')}`;
+        },
+      },
       altText: DataTypes.STRING,
       width: DataTypes.INTEGER,
       height: DataTypes.INTEGER,

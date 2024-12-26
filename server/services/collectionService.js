@@ -1,7 +1,9 @@
 const { Collection } = require('../models');
 
 const findAll = async () => {
-  return await Collection.findAll();
+  return await Collection.findAll({
+    order: [['title', 'ASC']],
+  });
 };
 
 const findOne = async (where) => {

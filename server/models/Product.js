@@ -75,6 +75,7 @@ module.exports = (sequelize, DataTypes) => {
               if (!acc[option.name]) {
                 acc[option.name] = {
                   id: option.id,
+                  attributeId: option.attributeId,
                   name: option.name,
                   values: [],
                 };

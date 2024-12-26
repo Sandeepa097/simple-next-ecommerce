@@ -147,7 +147,10 @@ const resolvers = {
       const images = await getProductImages(product.id, first);
       return {
         edges: images.map((image) => ({
-          node: image.dataValues,
+          node: {
+            ...image.dataValues,
+            url: image.urlPath,
+          },
         })),
       };
     },

@@ -1,7 +1,9 @@
 const { Attribute } = require('../models');
 
 const findAll = async () => {
-  return await Attribute.findAll();
+  return await Attribute.findAll({
+    order: [['name', 'ASC']],
+  });
 };
 
 const findOne = async (where) => {

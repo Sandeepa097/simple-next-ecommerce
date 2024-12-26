@@ -4,23 +4,74 @@ import { useState, useEffect } from 'react';
 import AttributeSelector from './AttributeSelector';
 import ProductVariantForm from './ProductVariantForm';
 
-export default function ProductForm() {
+export default function ProductForm({ onSubmit, initialData = {} }) {
   const [collections, setCollections] = useState([]);
   const [attributes, setAttributes] = useState([]);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [descriptionHtml, setDescriptionHtml] = useState('');
-  const [collectionId, setCollectionId] = useState('');
-  const [featuredImage, setFeaturedImage] = useState('');
+  const [title, setTitle] = useState(initialData.title || '');
+  const [description, setDescription] = useState(initialData.description || '');
+  const [descriptionHtml, setDescriptionHtml] = useState(
+    initialData.descriptionHtml || ''
+  );
+  const [collectionId, setCollectionId] = useState(
+    initialData.collectionId || ''
+  );
+  const [featuredImage, setFeaturedImage] = useState(
+    initialData.featuredImageUrl || ''
+  );
   const [images, setImages] = useState([]);
-  const [availableForSale, setAvailableForSale] = useState(true);
-  const [seoTitle, setSeoTitle] = useState('');
-  const [seoDescription, setSeoDescription] = useState('');
-  const [selectedAttributes, setSelectedAttributes] = useState([]);
+  const [availableForSale, setAvailableForSale] = useState(
+    initialData.availableForSale ||
+      (initialData.availableForSale !== false && true)
+  );
+  const [seoTitle, setSeoTitle] = useState(initialData.seoTitle || '');
+  const [seoDescription, setSeoDescription] = useState(
+    initialData.seoDescription || ''
+  );
+  const [selectedAttributes, setSelectedAttributes] = useState(
+    initialData.options && initialData.options.length
+      ? initialData.options.map((option) => option.attributeId)
+      : []
+  );
   const [variants, setVariants] = useState([]);
 
   const imagesSetter = (file) => {
     setImages([...images, file]);
+  };
+
+  const setInitialImages = (data) => {
+    setImages(
+      data.images && data.images.length
+        ? data.images.map((image) => image.url)
+        : []
+    );
+  };
+
+  const setInitialSelectedAttributes = (data) => {
+    setSelectedAttributes(
+      data.options && data.options.length
+        ? data.options.map((option) => option.attributeId)
+        : []
+    );
+  };
+
+  const setInitialVariants = (data) => {
+    setVariants(
+      data.variants && data.variants.length
+        ? data.variants.map((variant) => ({
+            title: variant.title,
+            currencyCode: variant.price?.currencyCode || '',
+            price: variant.price?.amount || '',
+            availableForSale: variant.availableForSale,
+            ...variant.selectedOptions.reduce(
+              (accumulator, option) => ({
+                ...accumulator,
+                [option.attributeId]: option.value,
+              }),
+              {}
+            ),
+          }))
+        : []
+    );
   };
 
   const handleFileUpload = async (e, setter, multiple = false) => {
@@ -56,28 +107,18 @@ export default function ProductForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('/api/admin/products', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        title,
-        description,
-        descriptionHtml,
-        collectionId,
-        featuredImage,
-        images,
-        availableForSale,
-        seoTitle,
-        seoDescription,
-        variants,
-      }),
+    onSubmit({
+      title,
+      description,
+      descriptionHtml,
+      collectionId,
+      featuredImage,
+      images,
+      availableForSale,
+      seoTitle,
+      seoDescription,
+      variants,
     });
-
-    if (response.ok) {
-      alert('Product created successfully');
-    } else {
-      alert('Failed to create product');
-    }
   };
 
   async function fetchCollections() {
@@ -123,6 +164,12 @@ export default function ProductForm() {
 
     setCollectionsAndAttributes();
   }, []);
+
+  useEffect(() => {
+    setInitialImages(initialData);
+    setInitialSelectedAttributes(initialData);
+    setInitialVariants(initialData);
+  }, [initialData]);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">

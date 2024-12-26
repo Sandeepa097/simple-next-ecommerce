@@ -72,7 +72,7 @@ export default function ProductVariantForm({
               type="checkbox"
               checked={variant.availableForSale}
               onChange={(e) =>
-                handleVariantChange(index, 'AvailableForSale', e.target.checked)
+                handleVariantChange(index, 'availableForSale', e.target.checked)
               }
               className="mt-1"
             />
