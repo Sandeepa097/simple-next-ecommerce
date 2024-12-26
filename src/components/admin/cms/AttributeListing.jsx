@@ -1,33 +1,33 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import CollectionListItem from './CollectionListItem';
+import AttributeListItem from './AttributeListItem';
 
 export default function AttributeListing() {
-  const [collections, setCollections] = useState([]);
+  const [attributes, setAttributes] = useState([]);
 
   useEffect(() => {
     fetch('/api/admin/attributes')
       .then((res) => res.json())
-      .then((data) => setCollections(data));
+      .then((data) => setAttributes(data));
   }, []);
 
   const handleDelete = async (id) => {
     await fetch(`/api/admin/attributes/${id}`, { method: 'DELETE' });
-    setCollections(collections.filter((collection) => collection.id !== id));
+    setAttributes(attributes.filter((attribute) => attribute.id !== id));
   };
 
-  const handleEdit = (collection) => {
-    window.location.href = `/admin/attributes/edit?key=${collection.id}`;
+  const handleEdit = (attribute) => {
+    window.location.href = `/admin/attributes/edit?key=${attribute.id}`;
   };
 
   return (
     <div>
-      {(!collections || !collections.length) && <span>No attributes</span>}
-      {collections.map((collection) => (
-        <CollectionListItem
-          key={collection.id}
-          collection={collection}
+      {(!attributes || !attributes.length) && <span>No attributes</span>}
+      {attributes.map((attribute) => (
+        <AttributeListItem
+          key={attribute.id}
+          attribute={attribute}
           onEdit={handleEdit}
           onDelete={handleDelete}
         />
