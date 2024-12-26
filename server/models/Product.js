@@ -49,9 +49,9 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       tags: {
-        type: DataTypes.VIRTUAL,
+        type: DataTypes.JSON,
         get() {
-          return ['tag 1', `tag 2`, `tag 3`];
+          return [];
         },
       },
       seoDescription: DataTypes.TEXT,
