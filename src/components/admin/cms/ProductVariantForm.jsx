@@ -1,6 +1,5 @@
 export default function ProductVariantForm({
   selectedAttributes,
-  variantImages,
   variants,
   setVariants,
 }) {

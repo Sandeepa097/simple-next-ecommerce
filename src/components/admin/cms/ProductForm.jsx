@@ -284,7 +284,6 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
         selectedAttributes={attributes.filter((attribute) =>
           selectedAttributes.includes(attribute.id)
         )}
-        variantImages={images}
         variants={variants}
         setVariants={setVariants}
       />
