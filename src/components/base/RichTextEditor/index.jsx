@@ -37,7 +37,7 @@ const RichTextEditor = ({
     <div className={`rich-text-editor md:col-span-5 ${className}`}>
       {label && <label className="block mb-2 font-medium">{label}</label>}
       <Toolbox editor={editor} />
-      <div className="editor-container border mt-1 rounded w-full bg-gray-50 min-h-20">
+      <div className="editor-container mt-1 rounded w-full bg-gray-50 min-h-20">
         <EditorContent editor={editor} />
       </div>
     </div>
