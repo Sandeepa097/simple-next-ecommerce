@@ -5,11 +5,13 @@ export default function ListingItem({ item, onDelete }) {
   return (
     <div className="flex justify-between items-center p-4 border-b">
       <div className="flex justify-start items-center gap-4">
-        {item.imageUrl ? (
+        {item.image ? (
           <div>
             <Image
-              src={item.imageUrl}
-              alt={item.imageAltText || item.title}
+              src={item.image.url}
+              alt={item.image.altText || item.title}
+              width={item.width || 80}
+              height={item.height || 80}
               className="w-20 h-20 object-cover"
             />
           </div>
