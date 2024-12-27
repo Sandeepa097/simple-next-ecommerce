@@ -7,6 +7,9 @@ export async function middleware(request) {
   const session = await getIronSession(await cookies(), sessionOptions);
 
   if (!session?.user) {
+    if (request.nextUrl.pathname.startsWith('/api')) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
     return NextResponse.redirect(new URL('/auth', request.url));
   }
 }

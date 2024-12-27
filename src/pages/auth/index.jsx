@@ -21,7 +21,7 @@ export default function Page() {
     });
 
     if (res.ok) {
-      router.push('/admin');
+      router.push('/admin/products');
     } else {
       alert('Invalid credentials');
     }
