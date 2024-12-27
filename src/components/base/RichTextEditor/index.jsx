@@ -8,14 +8,14 @@ import BulletList from '@tiptap/extension-bullet-list';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Toolbox from './Toolbox';
 
-const RichTextEditor = ({
+export default function Index({
   className,
   label,
   name,
   value,
   onChange,
   placeholder,
-}) => {
+}) {
   const editor = useEditor({
     extensions: [StarterKit, Bold, Italic, Heading, BulletList, OrderedList],
     content: value || '',
@@ -37,11 +37,9 @@ const RichTextEditor = ({
     <div className={`rich-text-editor md:col-span-5 ${className}`}>
       {label && <label className="block mb-2 font-medium">{label}</label>}
       <Toolbox editor={editor} />
-      <div className="editor-container mt-1 rounded w-full bg-gray-50 min-h-20">
+      <div className="editor-container mt-1 rounded w-full bg-gray-50 hover:bg-gray-100 min-h-20">
         <EditorContent editor={editor} />
       </div>
     </div>
   );
-};
-
-export default RichTextEditor;
+}

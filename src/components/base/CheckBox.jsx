@@ -10,7 +10,7 @@ export default function CheckBox({
     <div className={`md:col-span-5 ${className}`}>
       <div className="inline-flex items-start">
         <label
-          className="flex items-start cursor-pointer relative"
+          className="flex items-start cursor-pointer relative bg-gray-50 hover:bg-gray-100"
           style={{ marginTop: '10px' }}
           htmlFor={name}>
           <input

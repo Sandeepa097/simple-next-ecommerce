@@ -7,7 +7,7 @@ import {
   FaListOl,
 } from 'react-icons/fa';
 
-const Toolbox = ({ editor }) => {
+export default function Toolbox({ editor }) {
   if (!editor) return null;
 
   return (
@@ -55,6 +55,4 @@ const Toolbox = ({ editor }) => {
       </button>
     </div>
   );
-};
-
-export default Toolbox;
+}

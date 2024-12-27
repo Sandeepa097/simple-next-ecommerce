@@ -35,14 +35,14 @@ export default function Dropdown({
 
       <div className="relative">
         <div
-          className="h-10 bg-white flex border border-gray-200 rounded items-center"
+          className="group h-10 flex border border-gray-200 rounded items-center bg-gray-50 hover:bg-gray-100"
           onClick={() => setDropdownOpened(!dropdownOpened)}>
           <input
             value={value ? items.find((item) => item.value === value).text : ''}
             name={name}
             id={name}
             placeholder={placeholder}
-            className="px-4 appearance-none outline-none text-gray-800 w-full cursor-pointer"
+            className="px-4 appearance-none outline-none text-gray-800 w-full cursor-pointer bg-gray-50 group-hover:bg-gray-100"
             readOnly
           />
 
@@ -86,7 +86,6 @@ export default function Dropdown({
           name="show_more"
           id="show_more"
           className="hidden peer"
-          checked
         />
 
         {dropdownOpened && (

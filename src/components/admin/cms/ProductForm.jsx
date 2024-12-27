@@ -9,6 +9,7 @@ import SubmitButton from '../../base/SubmitButton';
 import CheckBox from '../../base/CheckBox';
 import Dropdown from '../../base/Dropdown';
 import RichTextEditor from '../../base/RichTextEditor';
+import Dropzone from '../../base/Dropzone';
 
 export default function ProductForm({ onSubmit, initialData = {} }) {
   const [collections, setCollections] = useState([]);
@@ -78,6 +79,11 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
           }))
         : []
     );
+  };
+
+  const handleUpload = (file, url) => {
+    console.log('Uploaded file:', file);
+    console.log('File URL:', url);
   };
 
   const handleFileUpload = async (e, setter, multiple = false) => {
@@ -202,15 +208,6 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        {/* <TextInput
-          label="Description HTML"
-          name="descriptionHtml"
-          placeholder="Enter the product description HTML"
-          value={descriptionHtml}
-          isTextarea
-          onChange={(e) => setDescriptionHtml(e.target.value)}
-        /> */}
-
         <RichTextEditor
           label="Description HTML"
           name="descriptionHtml"
@@ -239,6 +236,13 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
           placeholder="Select a collection (optional)"
           value={collectionId}
           onChange={(value) => setCollectionId(value)}
+        />
+
+        <Dropzone
+          label="Featured Image"
+          name="featuredImage"
+          multiple={false}
+          onUpload={handleUpload}
         />
 
         <div>
