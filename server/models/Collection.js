@@ -17,7 +17,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Collection.init(
     {
-      handle: DataTypes.STRING,
+      handle: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
       title: DataTypes.STRING,
       description: DataTypes.TEXT,
       seoDescription: DataTypes.TEXT,
@@ -36,12 +39,26 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'Collection',
       hooks: {
-        beforeValidate(collection) {
+        async beforeValidate(collection) {
           if (!collection.handle && collection.title) {
-            collection.handle = collection.title
+            const baseHandle = collection.title
               .toLowerCase()
               .replace(/[^a-z0-9]+/g, '-')
               .replace(/^-+|-+$/g, '');
+
+            let uniqueHandle = baseHandle;
+            let suffix = 2;
+
+            while (
+              await sequelize.models.Collection.findOne({
+                where: { handle: uniqueHandle },
+              })
+            ) {
+              uniqueHandle = `${baseHandle}-${suffix}`;
+              suffix++;
+            }
+
+            collection.handle = uniqueHandle;
           }
         },
       },

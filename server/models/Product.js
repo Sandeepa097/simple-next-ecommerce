@@ -131,12 +131,26 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'Product',
       hooks: {
-        beforeValidate(product) {
+        async beforeValidate(product) {
           if (!product.handle && product.title) {
-            product.handle = product.title
+            const baseHandle = product.title
               .toLowerCase()
               .replace(/[^a-z0-9]+/g, '-')
               .replace(/^-+|-+$/g, '');
+
+            let uniqueHandle = baseHandle;
+            let suffix = 2;
+
+            while (
+              await sequelize.models.Product.findOne({
+                where: { handle: uniqueHandle },
+              })
+            ) {
+              uniqueHandle = `${baseHandle}-${suffix}`;
+              suffix++;
+            }
+
+            product.handle = uniqueHandle;
           }
         },
       },

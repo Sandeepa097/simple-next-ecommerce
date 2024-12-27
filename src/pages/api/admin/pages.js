@@ -25,6 +25,7 @@ export default async function handler(req, res) {
         });
         res.status(201).json(page);
       } catch (error) {
+        console.log(error);
         res.status(500).json({ message: 'Error creating page' });
       }
       break;
