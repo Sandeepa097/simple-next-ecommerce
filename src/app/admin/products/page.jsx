@@ -1,12 +1,16 @@
 import Listing from '../../../components/base/Listing';
 import { Suspense } from 'react';
 import { cookies } from 'next/headers';
+import Paginator from '../../../components/base/Paginator';
 
-async function ProductList() {
+async function ProductList({ searchParams }) {
   try {
-    const cookieHeader = await cookies().toString();
+    const limit = Number(searchParams?.limit || 10);
+    const offset = Number(searchParams?.offset || 0);
+
+    const cookieHeader = (await cookies()).toString();
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_ORIGIN}/api/admin/products`,
+      `${process.env.NEXT_PUBLIC_ORIGIN}/api/admin/products?limit=${limit}&offset=${offset}`,
       {
         method: 'GET',
         headers: {
@@ -15,7 +19,9 @@ async function ProductList() {
       }
     );
 
-    const products = (await response.json()).map((product) => ({
+    const resolvedResponse = await response.json();
+
+    const products = resolvedResponse.products?.map((product) => ({
       id: product.id,
       title: product.title,
       description: product.description,
@@ -32,24 +38,33 @@ async function ProductList() {
     }));
 
     return (
-      <Listing
-        items={products}
-        headerTitle="Products"
-        emptyMessage="No products found"
-        newButton={{ href: '/admin/products/new', text: 'New Product' }}
-        deleteUrl={`${process.env.NEXT_PUBLIC_ORIGIN}/api/admin/products`}
-      />
+      <div>
+        <Listing
+          items={products}
+          headerTitle="Products"
+          emptyMessage="No products found"
+          newButton={{ href: '/admin/products/new', text: 'New Product' }}
+          deleteUrl={`${process.env.NEXT_PUBLIC_ORIGIN}/api/admin/products`}
+        />
+        <Paginator
+          path={'/admin/products'}
+          currentPage={offset / limit + 1}
+          totalPages={Math.ceil(resolvedResponse.count / limit)}
+          limit={limit}
+        />
+      </div>
     );
   } catch (error) {
     console.error(error);
   }
 }
 
-export default function Page() {
+export default async function Page({ searchParams }) {
+  const resolvedSearchParams = await searchParams;
   return (
     <Suspense>
       <div>
-        <ProductList />
+        <ProductList searchParams={resolvedSearchParams} />
       </div>
     </Suspense>
   );

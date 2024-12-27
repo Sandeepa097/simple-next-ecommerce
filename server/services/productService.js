@@ -53,10 +53,15 @@ const destroy = async (where) => {
   return await Product.destroy({ where });
 };
 
+const count = async () => {
+  return await Product.count();
+};
+
 module.exports = {
   findAll,
   create,
   findOne,
   update,
   destroy,
+  count,
 };

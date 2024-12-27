@@ -4,14 +4,52 @@ const productImageService = require('../../../../server/services/productImageSer
 const productVariantService = require('../../../../server/services/productVariantService');
 const productVariantAttributeValueService = require('../../../../server/services/productVariantAttributeValueService');
 
+const getSequelizeOptions = (query) => {
+  let options = {};
+
+  if (query.search) {
+    options = {
+      ...options,
+      where: {
+        name: { [Op.like]: `%${searchQuery}%` },
+      },
+    };
+  }
+
+  if (query.latest) {
+    options = {
+      ...options,
+      order: [...(options.order || []), ['createdAt', 'DESC']],
+    };
+  }
+
+  if (query.limit) {
+    options = {
+      ...options,
+      limit: Number(query.limit),
+    };
+  }
+
+  if (query.offset) {
+    options = {
+      ...options,
+      offset: Number(query.offset),
+    };
+  }
+
+  return options;
+};
+
 export default async function handler(req, res) {
   const { method } = req;
 
   switch (method) {
     case 'GET':
       try {
-        const products = await productService.findAll();
-        res.status(200).json(products);
+        const options = getSequelizeOptions(req.query);
+        const products = await productService.findAll({ ...options });
+        const count = await productService.count();
+        res.status(200).json({ products, count });
       } catch (error) {
         res.status(500).json({ message: 'Error fetching products' });
       }

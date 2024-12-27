@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 
 async function CollectionList() {
   try {
-    const cookieHeader = await cookies().toString();
+    const cookieHeader = (await cookies()).toString();
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_ORIGIN}/api/admin/collections`,
       {
