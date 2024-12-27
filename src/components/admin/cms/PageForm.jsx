@@ -1,6 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import Card from '../../base/Card';
+import TextInput from '../../base/TextInput';
+import SubmitButton from '../../base/SubmitButton';
 
 export default function PageForm({ onSubmit, initialData = {} }) {
   const [title, setTitle] = useState(initialData.title || '');
@@ -18,53 +21,51 @@ export default function PageForm({ onSubmit, initialData = {} }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium">Title</label>
-        <input
-          type="text"
+      <Card
+        title="New Page"
+        description="Create a new page"
+        subTitle="Page Details"
+        subDescription="Please fill out all the fields.">
+        <TextInput
+          label="Title"
+          name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full p-2 border rounded"
+          placeholder="Enter the page title"
         />
-      </div>
-      <div>
-        <label className="block text-sm font-medium">Body Summary</label>
-        <textarea
+        <TextInput
+          label="Body Summary"
+          name="bodySummary"
           value={bodySummary}
+          isTextarea
           onChange={(e) => setBodySummary(e.target.value)}
-          className="w-full p-2 border rounded"></textarea>
-      </div>
-      <div>
-        <label className="block text-sm font-medium">Body</label>
-        <textarea
+          placeholder="Enter a summary of the body"
+        />
+        <TextInput
+          label="Body"
+          name="body"
           value={body}
+          isTextarea
           onChange={(e) => setBody(e.target.value)}
-          className="w-full p-2 border rounded"></textarea>
-      </div>
-      <div>
-        <div>SEO</div>
-        <div>
-          <label className="block text-sm font-medium">Title</label>
-          <input
-            type="text"
-            value={seoTitle}
-            onChange={(e) => setSeoTitle(e.target.value)}
-            className="w-full p-2 border rounded"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium">Description</label>
-          <textarea
-            value={seoDescription}
-            onChange={(e) => setSeoDescription(e.target.value)}
-            className="w-full p-2 border rounded"></textarea>
-        </div>
-      </div>
-      <button
-        type="submit"
-        className="w-full bg-blue-500 text-white py-2 rounded">
-        Save
-      </button>
+          placeholder="Enter the body content"
+        />
+        <TextInput
+          label="SEO Title"
+          name="seoTitle"
+          value={seoTitle}
+          onChange={(e) => setSeoTitle(e.target.value)}
+          placeholder="Enter the SEO title"
+        />
+        <TextInput
+          label="SEO Description"
+          name="seoDescription"
+          value={seoDescription}
+          isTextarea
+          onChange={(e) => setSeoDescription(e.target.value)}
+          placeholder="Enter the SEO description"
+        />
+        <SubmitButton text={initialData?.id ? 'Update' : 'Create'} />
+      </Card>
     </form>
   );
 }

@@ -3,7 +3,6 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import PageForm from '../../../../components/admin/cms/PageForm';
-import MenuContentHeader from '../../../../components/admin/cms/MenuContentHeader';
 
 export default function Page() {
   const searchParams = useSearchParams();
@@ -34,10 +33,5 @@ export default function Page() {
 
   if (!page) return <p>Loading...</p>;
 
-  return (
-    <div>
-      <MenuContentHeader title="Edit Page" />
-      <PageForm onSubmit={handleSubmit} initialData={page} />
-    </div>
-  );
+  return <PageForm onSubmit={handleSubmit} initialData={page} />;
 }

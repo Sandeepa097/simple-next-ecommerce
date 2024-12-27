@@ -3,7 +3,6 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import AttributeForm from '../../../../components/admin/cms/AttributeForm';
-import MenuContentHeader from '../../../../components/admin/cms/MenuContentHeader';
 
 export default function Page() {
   const searchParams = useSearchParams();
@@ -34,10 +33,5 @@ export default function Page() {
 
   if (!attribute) return <p>Loading...</p>;
 
-  return (
-    <div>
-      <MenuContentHeader title="Edit Attribute" />
-      <AttributeForm onSubmit={handleSubmit} initialData={attribute} />
-    </div>
-  );
+  return <AttributeForm onSubmit={handleSubmit} initialData={attribute} />;
 }

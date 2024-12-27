@@ -1,6 +1,5 @@
 'use client';
 
-import MenuContentHeader from '../../../../components/admin/cms/MenuContentHeader';
 import ProductForm from '../../../../components/admin/cms/ProductForm';
 
 export default function Page() {
@@ -18,12 +17,5 @@ export default function Page() {
     }
   };
 
-  return (
-    <div>
-      <div>
-        <MenuContentHeader title="Create New Product" />
-        <ProductForm onSubmit={handleSubmit} />
-      </div>
-    </div>
-  );
+  return <ProductForm onSubmit={handleSubmit} />;
 }

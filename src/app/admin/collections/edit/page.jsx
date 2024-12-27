@@ -3,7 +3,6 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import CollectionForm from '../../../../components/admin/cms/CollectionForm';
-import MenuContentHeader from '../../../../components/admin/cms/MenuContentHeader';
 
 export default function Page() {
   const searchParams = useSearchParams();
@@ -34,10 +33,5 @@ export default function Page() {
 
   if (!collection) return <p>Loading...</p>;
 
-  return (
-    <div>
-      <MenuContentHeader title="Edit Collection" />
-      <CollectionForm onSubmit={handleSubmit} initialData={collection} />
-    </div>
-  );
+  return <CollectionForm onSubmit={handleSubmit} initialData={collection} />;
 }

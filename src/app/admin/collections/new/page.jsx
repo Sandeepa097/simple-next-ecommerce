@@ -1,6 +1,5 @@
 'use client';
 
-import MenuContentHeader from '../../../../components/admin/cms/MenuContentHeader';
 import CollectionForm from '../../../../components/admin/cms/CollectionForm';
 
 export default function Page() {
@@ -18,10 +17,5 @@ export default function Page() {
     }
   };
 
-  return (
-    <div>
-      <MenuContentHeader title="Create New Collection" />
-      <CollectionForm onSubmit={handleSubmit} />
-    </div>
-  );
+  return <CollectionForm onSubmit={handleSubmit} />;
 }

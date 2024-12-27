@@ -1,6 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import Card from '../../base/Card';
+import TextInput from '../../base/TextInput';
+import SubmitButton from '../../base/SubmitButton';
 
 export default function CollectionForm({ onSubmit, initialData = {} }) {
   const [title, setTitle] = useState(initialData.title || '');
@@ -16,47 +19,44 @@ export default function CollectionForm({ onSubmit, initialData = {} }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium">Title</label>
-        <input
-          type="text"
+    <form onSubmit={handleSubmit}>
+      <Card
+        title="New Collection"
+        description="Create a new collection"
+        subTitle="Collection Details"
+        subDescription="Please fill out all the fields.">
+        <TextInput
+          label="Title"
+          name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full p-2 border rounded"
+          placeholder="Enter the collection title"
         />
-      </div>
-      <div>
-        <label className="block text-sm font-medium">Description</label>
-        <textarea
+        <TextInput
+          label="Description"
+          name="description"
           value={description}
+          isTextarea
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full p-2 border rounded"></textarea>
-      </div>
-      <div>
-        <div>SEO</div>
-        <div>
-          <label className="block text-sm font-medium">Title</label>
-          <input
-            type="text"
-            value={seoTitle}
-            onChange={(e) => setSeoTitle(e.target.value)}
-            className="w-full p-2 border rounded"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium">Description</label>
-          <textarea
-            value={seoDescription}
-            onChange={(e) => setSeoDescription(e.target.value)}
-            className="w-full p-2 border rounded"></textarea>
-        </div>
-      </div>
-      <button
-        type="submit"
-        className="w-full bg-blue-500 text-white py-2 rounded">
-        Save
-      </button>
+          placeholder="Enter the collection description"
+        />
+        <TextInput
+          label="SEO Title"
+          name="seoTitle"
+          value={seoTitle}
+          onChange={(e) => setSeoTitle(e.target.value)}
+          placeholder="Enter the SEO title"
+        />
+        <TextInput
+          label="SEO Description"
+          name="seoDescription"
+          value={seoDescription}
+          isTextarea
+          onChange={(e) => setSeoDescription(e.target.value)}
+          placeholder="Enter the SEO description"
+        />
+        <SubmitButton text={initialData?.id ? 'Update' : 'Create'} />
+      </Card>
     </form>
   );
 }

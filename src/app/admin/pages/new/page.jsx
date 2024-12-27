@@ -1,6 +1,5 @@
 'use client';
 
-import MenuContentHeader from '../../../../components/admin/cms/MenuContentHeader';
 import PageForm from '../../../../components/admin/cms/PageForm';
 
 export default function Page() {
@@ -18,10 +17,5 @@ export default function Page() {
     }
   };
 
-  return (
-    <div>
-      <MenuContentHeader title="Create New Page" />
-      <PageForm onSubmit={handleSubmit} />
-    </div>
-  );
+  return <PageForm onSubmit={handleSubmit} />;
 }

@@ -1,6 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import TextInput from '../../base/TextInput';
+import Card from '../../base/Card';
+import SubmitButton from '../../base/SubmitButton';
 
 export default function AttributeForm({ onSubmit, initialData = {} }) {
   const [name, setName] = useState(initialData.name || '');
@@ -11,21 +14,22 @@ export default function AttributeForm({ onSubmit, initialData = {} }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium">Name</label>
-        <input
-          type="text"
+    <form onSubmit={handleSubmit}>
+      <Card
+        title="New Attribute"
+        description="Create a new attribute"
+        subTitle="Attribute Details"
+        subDescription="Please fill out all the fields.">
+        <TextInput
+          label="Name"
+          name="name"
+          placeholder="Enter the attribute name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full p-2 border rounded"
         />
-      </div>
-      <button
-        type="submit"
-        className="w-full bg-blue-500 text-white py-2 rounded">
-        Save
-      </button>
+
+        <SubmitButton text={initialData?.id ? 'Update' : 'Create'} />
+      </Card>
     </form>
   );
 }

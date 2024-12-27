@@ -1,6 +1,5 @@
 'use client';
 
-import MenuContentHeader from '../../../../components/admin/cms/MenuContentHeader';
 import AttributeForm from '../../../../components/admin/cms/AttributeForm';
 
 export default function Page() {
@@ -18,10 +17,5 @@ export default function Page() {
     }
   };
 
-  return (
-    <div>
-      <MenuContentHeader title="Create New Attribute" />
-      <AttributeForm onSubmit={handleSubmit} />
-    </div>
-  );
+  return <AttributeForm onSubmit={handleSubmit} />;
 }

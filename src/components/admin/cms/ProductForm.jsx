@@ -3,6 +3,12 @@
 import { useState, useEffect } from 'react';
 import AttributeSelector from './AttributeSelector';
 import ProductVariantForm from './ProductVariantForm';
+import Card from '../../base/Card';
+import TextInput from '../../base/TextInput';
+import SubmitButton from '../../base/SubmitButton';
+import CheckBox from '../../base/CheckBox';
+import Dropdown from '../../base/Dropdown';
+import RichTextEditor from '../../base/RichTextEditor';
 
 export default function ProductForm({ onSubmit, initialData = {} }) {
   const [collections, setCollections] = useState([]);
@@ -166,133 +172,130 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
   }, []);
 
   useEffect(() => {
+    if (!initialData.id) return;
     setInitialImages(initialData);
     setInitialSelectedAttributes(initialData);
     setInitialVariants(initialData);
   }, [initialData]);
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium">Title</label>
-        <input
-          type="text"
+    <form onSubmit={handleSubmit}>
+      <Card
+        title="New Product"
+        description="Create a new product"
+        subTitle="Product Details"
+        subDescription="Please fill out all the fields.">
+        <TextInput
+          label="Title"
+          name="title"
+          placeholder="Enter the product title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full mt-1 border rounded p-2"
-          required
         />
-      </div>
 
-      <div>
-        <label className="block text-sm font-medium">Description</label>
-        <textarea
+        <TextInput
+          label="Description"
+          name="description"
+          placeholder="Enter the product description"
           value={description}
+          isTextarea
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full mt-1 border rounded p-2"
-          rows="4"
-          required
         />
-      </div>
 
-      <div>
-        <label className="block text-sm font-medium">Description HTML</label>
-        <textarea
+        {/* <TextInput
+          label="Description HTML"
+          name="descriptionHtml"
+          placeholder="Enter the product description HTML"
           value={descriptionHtml}
+          isTextarea
           onChange={(e) => setDescriptionHtml(e.target.value)}
-          className="w-full mt-1 border rounded p-2"
-          rows="4"
-          required
+        /> */}
+
+        <RichTextEditor
+          label="Description HTML"
+          name="descriptionHtml"
+          placeholder="Enter the product description HTML"
+          value={descriptionHtml}
+          isTextarea
+          onChange={(e) => setDescriptionHtml(e.target.value)}
         />
-      </div>
 
-      <div>
-        <label className="block text-sm font-medium">Collection</label>
-        <select
-          value={collectionId}
-          onChange={(e) => setCollectionId(e.target.value)}
-          className="w-full mt-1 border rounded p-2"
-          required>
-          {collections.map((collection) => (
-            <option key={collection.id} value={collection.id}>
-              {collection.title}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium">Featured Image</label>
-        <input
-          type="file"
-          onChange={(e) => handleFileUpload(e, setFeaturedImage)}
-          className="w-full mt-1 border rounded p-2"
-          required
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium">Additional Images</label>
-        <input
-          type="file"
-          onChange={(e) => handleFileUpload(e, imagesSetter, true)}
-          className="w-full mt-1 border rounded p-2"
-          multiple
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium">Available For Sale</label>
-        <input
-          type="checkbox"
-          value={availableForSale}
+        <CheckBox
+          label="Available for Sale"
+          name="availableForSale"
+          description="At least one variant from the product is available for sale"
           checked={availableForSale}
           onChange={(e) => setAvailableForSale(e.target.checked)}
-          className="mt-1"
         />
-      </div>
 
-      <div>
-        <div>SEO</div>
+        <Dropdown
+          label="Collection"
+          name="collectionId"
+          items={collections.map((collection) => ({
+            id: collection.id,
+            value: collection.id,
+            text: collection.title,
+          }))}
+          placeholder="Select a collection (optional)"
+          value={collectionId}
+          onChange={(value) => setCollectionId(value)}
+        />
+
         <div>
-          <label className="block text-sm font-medium">Title</label>
+          <label className="block text-sm font-medium">Featured Image</label>
           <input
-            type="text"
-            value={seoTitle}
-            onChange={(e) => setSeoTitle(e.target.value)}
-            className="w-full p-2 border rounded"
+            type="file"
+            onChange={(e) => handleFileUpload(e, setFeaturedImage)}
+            className="w-full mt-1 border rounded p-2"
+            required
           />
         </div>
+
         <div>
-          <label className="block text-sm font-medium">Description</label>
-          <textarea
-            value={seoDescription}
-            onChange={(e) => setSeoDescription(e.target.value)}
-            className="w-full p-2 border rounded"></textarea>
+          <label className="block text-sm font-medium">Additional Images</label>
+          <input
+            type="file"
+            onChange={(e) => handleFileUpload(e, imagesSetter, true)}
+            className="w-full mt-1 border rounded p-2"
+            multiple
+          />
         </div>
-      </div>
 
-      {/* Attribute Selector */}
-      <AttributeSelector
-        attributes={attributes}
-        selectedAttributes={selectedAttributes}
-        setSelectedAttributes={setSelectedAttributes}
-      />
+        <TextInput
+          label="SEO Title"
+          name="seoTitle"
+          placeholder="Enter the SEO title"
+          value={seoTitle}
+          onChange={(e) => setSeoTitle(e.target.value)}
+        />
 
-      {/* Variant Creator */}
-      <ProductVariantForm
-        selectedAttributes={attributes.filter((attribute) =>
-          selectedAttributes.includes(attribute.id)
-        )}
-        variants={variants}
-        setVariants={setVariants}
-      />
+        <TextInput
+          label="SEO Description"
+          name="seoDescription"
+          placeholder="Enter the SEO description"
+          value={seoDescription}
+          isTextarea
+          onChange={(e) => setSeoDescription(e.target.value)}
+        />
 
-      <button
-        type="submit"
-        className="w-full px-4 py-2 bg-blue-500 text-white rounded">
-        Save Product
-      </button>
+        {/* Attribute Selector */}
+        <AttributeSelector
+          attributes={attributes}
+          selectedAttributes={selectedAttributes}
+          setSelectedAttributes={setSelectedAttributes}
+        />
+
+        {/* Variant Creator */}
+        <ProductVariantForm
+          selectedAttributes={attributes.filter((attribute) =>
+            selectedAttributes.includes(attribute.id)
+          )}
+          variants={variants}
+          setVariants={setVariants}
+        />
+
+        <SubmitButton text={initialData?.id ? 'Update' : 'Create'} />
+      </Card>
     </form>
   );
 }

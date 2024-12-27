@@ -3,7 +3,6 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ProductForm from '../../../../components/admin/cms/ProductForm';
-import MenuContentHeader from '../../../../components/admin/cms/MenuContentHeader';
 
 export default function Product() {
   const searchParams = useSearchParams();
@@ -34,10 +33,5 @@ export default function Product() {
 
   if (!product) return <p>Loading...</p>;
 
-  return (
-    <div>
-      <MenuContentHeader title="Edit Product" />
-      <ProductForm onSubmit={handleSubmit} initialData={product} />
-    </div>
-  );
+  return <ProductForm onSubmit={handleSubmit} initialData={product} />;
 }
