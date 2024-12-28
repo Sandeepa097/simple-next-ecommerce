@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
   if (req.method === 'GET') {
     const user = await findOne({ username: session.user.username });
-    res.status(200).json({ user });
+    res.status(200).json(user);
   } else if (req.method === 'PATCH') {
     const { contactWhatsapp } = req.body;
     await update({ contactWhatsapp }, { username: session.user.username });

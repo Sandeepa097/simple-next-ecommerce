@@ -4,26 +4,9 @@ import { useEffect, useState } from 'react';
 import SettingForm from '../../../components/admin/cms/SettingForm';
 
 export default function Page() {
-  const [contactWhatsapp, setContactWhatsapp] = useState('');
-
-  async function fetchSettings() {
-    const res = await fetch('/api/admin/settings', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      return data.user;
-    }
-
-    return null;
-  }
+  const [user, setUser] = useState('');
 
   async function handleSubmit(settings) {
-    e.preventDefault();
     const res = await fetch('/api/admin/settings', {
       method: 'PATCH',
       headers: {
@@ -40,17 +23,12 @@ export default function Page() {
   }
 
   useEffect(() => {
-    const setSettings = async () => {
-      const user = await fetchSettings();
-      if (user && user.contactWhatsapp) {
-        setContactWhatsapp(user.contactWhatsapp);
-      }
-    };
-
-    setSettings();
+    fetch('/api/admin/settings')
+      .then((res) => res.json())
+      .then((data) => setUser(data));
   }, []);
 
-  return (
-    <SettingForm onSubmit={handleSubmit} initialData={{ contactWhatsapp }} />
-  );
+  if (!user) return <p>Loading...</p>;
+
+  return <SettingForm onSubmit={handleSubmit} initialData={user} />;
 }
