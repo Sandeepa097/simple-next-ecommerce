@@ -20,10 +20,17 @@ export default function Dropzone({
 
   const onDrop = useCallback(
     (acceptedFiles) => {
-      acceptedFiles.forEach((file) => {
+      const imageFiles = acceptedFiles.filter((file) =>
+        file.type.startsWith('image/')
+      );
+      imageFiles.forEach((file) => {
         const url = URL.createObjectURL(file);
         onUpload(file, url);
       });
+
+      if (imageFiles.length !== acceptedFiles.length) {
+        alert('Only image files are allowed!');
+      }
     },
     [onUpload]
   );
