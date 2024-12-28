@@ -5,12 +5,17 @@ import Paginator from '../../../components/base/Paginator';
 
 async function ProductList({ searchParams }) {
   try {
+    const query = searchParams?.query || '';
     const limit = Number(searchParams?.limit || 10);
     const offset = Number(searchParams?.offset || 0);
 
     const cookieHeader = (await cookies()).toString();
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_ORIGIN}/api/admin/products?limit=${limit}&offset=${offset}`,
+      `${
+        process.env.NEXT_PUBLIC_ORIGIN
+      }/api/admin/products?limit=${limit}&offset=${offset}${
+        query ? `&search=${query}` : ''
+      }`,
       {
         method: 'GET',
         headers: {
@@ -41,6 +46,9 @@ async function ProductList({ searchParams }) {
       <div>
         <Listing
           items={products}
+          search={true}
+          initialSearch={query}
+          path={'/admin/products'}
           headerTitle="Products"
           emptyMessage="No products found"
           newButton={{ href: '/admin/products/new', text: 'New Product' }}

@@ -1,3 +1,5 @@
+import { Op } from 'sequelize';
+
 const fileService = require('../../../../server/services/fileService');
 const productService = require('../../../../server/services/productService');
 const productImageService = require('../../../../server/services/productImageService');
@@ -11,7 +13,7 @@ const getSequelizeOptions = (query) => {
     options = {
       ...options,
       where: {
-        name: { [Op.like]: `%${searchQuery}%` },
+        title: { [Op.like]: `%${query.search}%` },
       },
     };
   }
@@ -51,6 +53,7 @@ export default async function handler(req, res) {
         const count = await productService.count();
         res.status(200).json({ products, count });
       } catch (error) {
+        console.error(error);
         res.status(500).json({ message: 'Error fetching products' });
       }
       break;

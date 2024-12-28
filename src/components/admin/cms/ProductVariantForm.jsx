@@ -106,6 +106,7 @@ export default function ProductVariantForm({
       ))}
 
       <button
+        type="button"
         className="mt-2 border-2 border-white rounded-full bg-green-500"
         onClick={(e) => {
           e.stopPropagation();

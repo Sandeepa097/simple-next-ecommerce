@@ -1,5 +1,6 @@
 import MenuContentHeader from '../../../components/admin/cms/MenuContentHeader';
 import Listing from './Listing';
+import ListingSearch from './ListingSearch';
 
 export default function Index({
   items,
@@ -7,6 +8,9 @@ export default function Index({
   emptyMessage,
   newButton,
   deleteUrl,
+  search = false,
+  initialSearch = '',
+  path = '',
 }) {
   return (
     <div>
@@ -18,6 +22,7 @@ export default function Index({
       ) : (
         <></>
       )}
+      {search && <ListingSearch path={path} initialSearch={initialSearch} />}
       <Listing
         items={items}
         emptyMessage={emptyMessage}

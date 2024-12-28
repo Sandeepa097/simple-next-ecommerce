@@ -20,7 +20,7 @@ export default function ListingItem({ item, onDelete }) {
         )}
         <div>
           <h3 className="font-bold">{item.title}</h3>
-          <p className="text-gray-600">{item.description}</p>
+          <p className="text-gray-600">{item.description?.split(0, 255)}</p>
         </div>
       </div>
       <div className="flex space-x-2">
@@ -29,8 +29,9 @@ export default function ListingItem({ item, onDelete }) {
             <span>
               {' '}
               <button
+                type="button"
                 href={item.editButton.href}
-                className="px-4 py-2 bg-blue-500 text-white rounded">
+                className="px-4 py-2 bg-green-500 text-white rounded">
                 {item.editButton.text || 'Edit'}
               </button>
             </span>
@@ -39,7 +40,11 @@ export default function ListingItem({ item, onDelete }) {
           <></>
         )}
         <button
-          onClick={() => onDelete(item.id)}
+          type="button"
+          onClick={() => {
+            const isConfirmed = confirm('Are you sure you want to delete?');
+            if (isConfirmed) onDelete(item.id);
+          }}
           className="px-4 py-2 bg-red-500 text-white rounded">
           Delete
         </button>

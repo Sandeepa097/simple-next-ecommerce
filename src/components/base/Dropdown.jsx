@@ -49,6 +49,7 @@ export default function Dropdown({
           />
 
           <button
+            type="button"
             onClick={(e) => {
               e.stopPropagation();
               setDropdownOpened(false);

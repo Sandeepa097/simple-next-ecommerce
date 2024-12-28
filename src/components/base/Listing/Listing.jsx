@@ -24,7 +24,7 @@ export default function Listing({ items, emptyMessage, deleteUrl }) {
   }
 
   return (
-    <div>
+    <div className="mt-2">
       {(!updatedItems || !updatedItems.length) && (
         <span>{emptyMessage || 'No items found'}</span>
       )}

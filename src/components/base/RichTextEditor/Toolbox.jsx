@@ -13,6 +13,7 @@ export default function Toolbox({ editor }) {
   return (
     <div className="flex space-x-2 mb-3">
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleBold().run()}
         className={`p-2 rounded ${
           editor.isActive('bold') ? 'bg-blue-500 text-white' : 'bg-gray-100'
@@ -20,6 +21,7 @@ export default function Toolbox({ editor }) {
         <FaBold />
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleItalic().run()}
         className={`p-2 rounded ${
           editor.isActive('italic') ? 'bg-blue-500 text-white' : 'bg-gray-100'
@@ -27,6 +29,7 @@ export default function Toolbox({ editor }) {
         <FaItalic />
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={`p-2 rounded ${
           editor.isActive('heading', { level: 1 })
@@ -36,6 +39,7 @@ export default function Toolbox({ editor }) {
         <FaHeading />
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         className={`p-2 rounded ${
           editor.isActive('bulletList')
@@ -45,6 +49,7 @@ export default function Toolbox({ editor }) {
         <FaListUl />
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
         className={`p-2 rounded ${
           editor.isActive('orderedList')
