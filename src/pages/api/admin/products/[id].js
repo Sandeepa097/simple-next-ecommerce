@@ -61,7 +61,7 @@ async function put(req, res) {
 
     await productService.update(
       {
-        collectionId,
+        collectionId: collectionId || null,
         title,
         description,
         descriptionHtml,
@@ -80,9 +80,8 @@ async function put(req, res) {
       { id: productId }
     );
 
+    await productImageService.deleteByProductId(productId);
     if (images && images.length) {
-      await productImageService.deleteByProductId(productId);
-
       for (const productImage of images) {
         const productImageId = await fileService.moveTemp(
           productImage,

@@ -89,7 +89,7 @@ async function post(req, res) {
     );
 
     const product = await productService.create({
-      collectionId,
+      collectionId: collectionId || null,
       title,
       description,
       descriptionHtml,
@@ -98,8 +98,8 @@ async function post(req, res) {
       seoDescription,
       featuredImageUrl: featuredImageId,
       featuredImageAltText: title,
-      featuredImageWidth: 800,
-      featuredImageHeight: 800,
+      featuredImageWidth: 80,
+      featuredImageHeight: 80,
     });
 
     for (const productImage of images) {
