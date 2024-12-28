@@ -300,14 +300,12 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
           onChange={(e) => setSeoDescription(e.target.value)}
         />
 
-        {/* Attribute Selector */}
         <AttributeSelector
           attributes={attributes}
           selectedAttributes={selectedAttributes}
           setSelectedAttributes={setSelectedAttributes}
         />
 
-        {/* Variant Creator */}
         <ProductVariantForm
           selectedAttributes={attributes.filter((attribute) =>
             selectedAttributes.includes(attribute.id)

@@ -1,3 +1,4 @@
+import { IoIosAdd, IoIosRemove } from 'react-icons/io';
 import CheckBox from '../../base/CheckBox';
 import Dropdown from '../../base/Dropdown';
 import TextInput from '../../base/TextInput';
@@ -26,11 +27,25 @@ export default function ProductVariantForm({
     setVariants(updatedVariants);
   };
 
+  const handleVariantOnRemove = (index) => {
+    const updatedVariants = [...variants];
+    updatedVariants.splice(index, 1);
+    setVariants(updatedVariants);
+  };
+
   return (
-    <div className={`md:col-span-5 ${className}`}>
+    <div className={`relative md:col-span-5 ${className}`}>
       <h3 className="block text-sm font-medium">Product Variants</h3>
       {variants.map((variant, index) => (
-        <div key={index} className="space-y-2 border p-4 rounded mt-4">
+        <div key={index} className="relative space-y-2 border p-4 rounded mt-4">
+          <div
+            className="absolute top-0 right-0 border-2 border-white rounded-full bg-red-500"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleVariantOnRemove(index);
+            }}>
+            <IoIosRemove className="text-white text-xl hover:text-2xl" />
+          </div>
           <TextInput
             label="Title"
             name={'variantTitle' + index}
@@ -91,10 +106,12 @@ export default function ProductVariantForm({
       ))}
 
       <button
-        type="button"
-        onClick={handleAddVariant}
-        className="mt-2 px-4 py-2 bg-green-500 text-white rounded">
-        Add Variant
+        className="mt-2 border-2 border-white rounded-full bg-green-500"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleAddVariant();
+        }}>
+        <IoIosAdd className="text-white text-xl hover:text-2xl" />
       </button>
     </div>
   );
