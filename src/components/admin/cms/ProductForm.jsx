@@ -322,6 +322,7 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
           )}
           variants={variants}
           setVariants={setVariants}
+          required={true}
         />
 
         <SubmitButton text={initialData?.id ? 'Update' : 'Create'} />

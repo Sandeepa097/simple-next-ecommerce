@@ -1,13 +1,17 @@
+'use client';
+
 import { IoIosAdd, IoIosRemove } from 'react-icons/io';
 import CheckBox from '../../base/CheckBox';
 import Dropdown from '../../base/Dropdown';
 import TextInput from '../../base/TextInput';
+import { useEffect, useRef } from 'react';
 
 export default function ProductVariantForm({
   className,
   selectedAttributes,
   variants,
   setVariants,
+  required = false,
 }) {
   const handleAddVariant = () => {
     const newVariant = {};
@@ -33,9 +37,33 @@ export default function ProductVariantForm({
     setVariants(updatedVariants);
   };
 
+  const proxyVariantRef = useRef(null);
+
+  useEffect(() => {
+    if (variants && variants.length) {
+      proxyVariantRef.current.setCustomValidity('');
+    }
+  }, [variants]);
+
   return (
     <div className={`relative md:col-span-5 ${className}`}>
       <h3 className="block text-sm font-medium">Product Variants</h3>
+      <input
+        ref={proxyVariantRef}
+        style={{
+          opacity: 0,
+          height: '1px',
+          display: 'block',
+        }}
+        type="text"
+        name="proxyVariantInput"
+        value={variants && variants.length ? 'Proxy variant' : ''}
+        onChange={() => {}}
+        onInvalid={(e) =>
+          e.target.setCustomValidity('Please create at least one variant.')
+        }
+        required={required}
+      />
       {variants.map((variant, index) => (
         <div key={index} className="relative space-y-2 border p-4 rounded mt-4">
           <div
