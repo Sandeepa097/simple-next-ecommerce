@@ -202,20 +202,19 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
         />
 
         <TextInput
-          label="Description"
+          label="Comment"
           name="description"
-          placeholder="Enter the product description"
+          placeholder="Enter the product comment"
           value={description}
           isTextarea
           onChange={(e) => setDescription(e.target.value)}
         />
 
         <RichTextEditor
-          label="Description HTML"
+          label="Description"
           name="descriptionHtml"
-          placeholder="Enter the product description HTML"
+          placeholder="Enter the product description"
           value={descriptionHtml}
-          isTextarea
           onChange={(e) => setDescriptionHtml(e.target.value)}
         />
 

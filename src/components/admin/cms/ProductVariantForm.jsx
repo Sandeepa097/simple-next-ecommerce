@@ -1,4 +1,9 @@
+import CheckBox from '../../base/CheckBox';
+import Dropdown from '../../base/Dropdown';
+import TextInput from '../../base/TextInput';
+
 export default function ProductVariantForm({
+  className,
   selectedAttributes,
   variants,
   setVariants,
@@ -22,73 +27,65 @@ export default function ProductVariantForm({
   };
 
   return (
-    <div>
-      <h3 className="text-lg font-medium mt-4">Product Variants</h3>
+    <div className={`md:col-span-5 ${className}`}>
+      <h3 className="block text-sm font-medium">Product Variants</h3>
       {variants.map((variant, index) => (
         <div key={index} className="space-y-2 border p-4 rounded mt-4">
-          <div>
-            <label className="block text-sm font-medium">Title</label>
-            <input
-              type="text"
-              value={variant.title}
-              onChange={(e) =>
-                handleVariantChange(index, 'title', e.target.value)
-              }
-              className="w-full p-2 border rounded"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Currency Code</label>
-            <input
-              type="text"
-              value={variant.currencyCode}
-              onChange={(e) =>
-                handleVariantChange(index, 'currencyCode', e.target.value)
-              }
-              className="w-full p-2 border rounded"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Price</label>
-            <input
-              type="number"
-              step="0.01"
-              value={variant.price}
-              onChange={(e) =>
-                handleVariantChange(index, 'price', e.target.value)
-              }
-              className="w-full mt-1 border rounded p-2"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">
-              Available For Sale
-            </label>
-            <input
-              type="checkbox"
-              checked={variant.availableForSale}
-              onChange={(e) =>
-                handleVariantChange(index, 'availableForSale', e.target.checked)
-              }
-              className="mt-1"
-            />
-          </div>
+          <TextInput
+            label="Title"
+            name={'variantTitle' + index}
+            placeholder="Enter the variant title"
+            value={variant.title}
+            onChange={(e) =>
+              handleVariantChange(index, 'title', e.target.value)
+            }
+          />
+          <Dropdown
+            label="Currency Code"
+            name={'currencyCode' + index}
+            items={[
+              { id: 'EUR', value: 'EUR', text: 'EUR (€)' },
+              { id: 'GBP', value: 'GBP', text: 'GBP(£)' },
+              { id: 'LKR', value: 'LKR', text: 'LKR(Rs)' },
+              { id: 'USD', value: 'USD', text: 'USD($)' },
+            ]}
+            placeholder="Select the variant currency code"
+            value={variant.currencyCode}
+            onChange={(value) =>
+              handleVariantChange(index, 'currencyCode', value)
+            }
+          />
+          <TextInput
+            type="number"
+            label="Price"
+            name={'price' + index}
+            placeholder="Enter the variant price"
+            value={variant.price}
+            onChange={(e) =>
+              handleVariantChange(index, 'price', e.target.value)
+            }
+          />
+          <CheckBox
+            label="Available for Sale"
+            name={'availableForSale' + index}
+            description="This variant is available for sale"
+            checked={availableForSale}
+            onChange={(e) =>
+              handleVariantChange(index, 'availableForSale', e.target.checked)
+            }
+          />
 
           {selectedAttributes.map((attr) => (
-            <div key={attr.id}>
-              <label className="block text-sm font-medium">{attr.name}</label>
-              <input
-                type="text"
-                value={variant[attr.id]}
-                onChange={(e) =>
-                  handleVariantChange(index, attr.id, e.target.value)
-                }
-                className="w-full mt-1 border rounded p-2"
-              />
-            </div>
+            <TextInput
+              key={attr.id}
+              label={attr.name}
+              name={attr.name + index}
+              placeholder={`Enter the variant ${attr.name.toLowerCase()}`}
+              value={variant[attr.id]}
+              onChange={(e) =>
+                handleVariantChange(index, attr.id, e.target.value)
+              }
+            />
           ))}
         </div>
       ))}

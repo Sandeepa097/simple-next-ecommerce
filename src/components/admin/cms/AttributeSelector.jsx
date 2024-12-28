@@ -1,4 +1,5 @@
 export default function AttributeSelector({
+  className,
   attributes,
   selectedAttributes,
   setSelectedAttributes,
@@ -12,7 +13,7 @@ export default function AttributeSelector({
   };
 
   return (
-    <div>
+    <div className={`md:col-span-5 ${className}`}>
       <label className="block text-sm font-medium">Select Attributes</label>
       <div className="flex flex-wrap mt-2 gap-2">
         {attributes.map((attr) => (
@@ -22,7 +23,7 @@ export default function AttributeSelector({
             className={`px-4 py-2 border rounded ${
               selectedAttributes.includes(attr.id)
                 ? 'bg-blue-500 text-white'
-                : 'bg-gray-100'
+                : 'bg-gray-50 hover:bg-gray-100'
             }`}
             onClick={() => toggleAttribute(attr.id)}>
             {attr.name}

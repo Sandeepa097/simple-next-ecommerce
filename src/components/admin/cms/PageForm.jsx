@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Card from '../../base/Card';
 import TextInput from '../../base/TextInput';
 import SubmitButton from '../../base/SubmitButton';
+import RichTextEditor from '../../base/RichTextEditor';
 
 export default function PageForm({ onSubmit, initialData = {} }) {
   const [title, setTitle] = useState(initialData.title || '');
@@ -37,11 +38,10 @@ export default function PageForm({ onSubmit, initialData = {} }) {
           onChange={(e) => setBodySummary(e.target.value)}
           placeholder="Enter a summary of the body"
         />
-        <TextInput
+        <RichTextEditor
           label="Body"
           name="body"
           value={body}
-          isTextarea
           onChange={(e) => setBody(e.target.value)}
           placeholder="Enter the body content"
         />

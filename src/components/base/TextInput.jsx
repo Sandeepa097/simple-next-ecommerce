@@ -1,5 +1,6 @@
 export default function TextInput({
   className,
+  type = 'text',
   label,
   name,
   value,
@@ -23,7 +24,7 @@ export default function TextInput({
         />
       ) : (
         <input
-          type="text"
+          type={type}
           name={name}
           id={name}
           onChange={onChange}
