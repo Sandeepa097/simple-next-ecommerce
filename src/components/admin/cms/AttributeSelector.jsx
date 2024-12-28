@@ -29,6 +29,10 @@ export default function AttributeSelector({
             {attr.name}
           </button>
         ))}
+        {!attributes ||
+          (!attributes.length && (
+            <p className="text-gray-500">No attributes available</p>
+          ))}
       </div>
     </div>
   );
