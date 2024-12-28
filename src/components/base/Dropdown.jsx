@@ -40,7 +40,7 @@ export default function Dropdown({
           onClick={() => setDropdownOpened(!dropdownOpened)}>
           <input
             value={
-              value ? items.find((item) => item.value === value)?.text : ''
+              (value && items.find((item) => item.value === value)?.text) || ''
             }
             name={name}
             id={name}
