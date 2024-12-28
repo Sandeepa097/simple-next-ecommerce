@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 export function DropDownList({ items, onClick }) {
   return (
-    <div className="absolute rounded shadow bg-white overflow-hidden hidden peer-checked:flex flex-col w-full mt-1 border border-gray-200">
+    <div className="z-10 absolute top-10 right-0 rounded shadow bg-white overflow-hidden peer-checked:flex flex-col w-full border border-gray-200">
       {items.map((item) => (
         <div key={item.value} className="cursor-pointer group">
           <a
@@ -26,6 +26,7 @@ export default function Dropdown({
   onChange,
 }) {
   const [dropdownOpened, setDropdownOpened] = useState(false);
+  console.log('dropdownOpened', dropdownOpened);
 
   return (
     <div className={`md:col-span-5 ${className}`}>
@@ -48,8 +49,7 @@ export default function Dropdown({
             readOnly
           />
 
-          <button
-            type="button"
+          <div
             onClick={(e) => {
               e.stopPropagation();
               setDropdownOpened(false);
@@ -67,12 +67,14 @@ export default function Dropdown({
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
-          </button>
+          </div>
           <label
             htmlFor="show_more"
-            className="cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-300 hover:text-gray-600">
+            className={`cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-300 hover:text-gray-600 ${
+              !dropdownOpened ? 'rotate-180' : ''
+            }`}>
             <svg
-              className="w-4 h-4 mx-2 fill-current"
+              className="w-4 h-4 mx-2 fill-current transition-transform duration-200"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -83,13 +85,6 @@ export default function Dropdown({
             </svg>
           </label>
         </div>
-
-        <input
-          type="checkbox"
-          name="show_more"
-          id="show_more"
-          className="hidden peer"
-        />
 
         {dropdownOpened && (
           <DropDownList
