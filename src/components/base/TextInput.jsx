@@ -20,7 +20,7 @@ export default function TextInput({
           id={name}
           onChange={onChange}
           placeholder={placeholder}
-          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 min-h-20 hover:bg-gray-100"
+          className="h-10 border mt-1 rounded px-4 py-2 w-full bg-gray-50 min-h-20 hover:bg-gray-100"
           value={value}
         />
       ) : (

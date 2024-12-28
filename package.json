@@ -18,7 +18,11 @@
     "@tiptap/extension-bullet-list": "^2.10.4",
     "@tiptap/extension-heading": "^2.10.4",
     "@tiptap/extension-italic": "^2.10.4",
+    "@tiptap/extension-link": "^2.10.4",
+    "@tiptap/extension-list-item": "^2.10.4",
     "@tiptap/extension-ordered-list": "^2.10.4",
+    "@tiptap/extension-text-style": "^2.10.4",
+    "@tiptap/extension-underline": "^2.10.4",
     "@tiptap/react": "^2.10.4",
     "@tiptap/starter-kit": "^2.10.4",
     "apollo-server-micro": "^3.13.0",
@@ -36,6 +40,7 @@
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.3.5",
     "react-icons": "^5.4.0",
+    "react-shadow": "^20.5.0",
     "sequelize": "^6.37.5"
   },
   "devDependencies": {
