@@ -54,6 +54,8 @@ export default function ProductVariantForm({
             onChange={(e) =>
               handleVariantChange(index, 'title', e.target.value)
             }
+            maxLength={255}
+            required={true}
           />
           <Dropdown
             label="Currency Code"
@@ -69,6 +71,7 @@ export default function ProductVariantForm({
             onChange={(value) =>
               handleVariantChange(index, 'currencyCode', value)
             }
+            required={true}
           />
           <TextInput
             type="number"
@@ -79,6 +82,8 @@ export default function ProductVariantForm({
             onChange={(e) =>
               handleVariantChange(index, 'price', e.target.value)
             }
+            min={0}
+            required={true}
           />
           <CheckBox
             label="Available for Sale"
@@ -100,6 +105,8 @@ export default function ProductVariantForm({
               onChange={(e) =>
                 handleVariantChange(index, attr.id, e.target.value)
               }
+              maxLength={255}
+              required={true}
             />
           ))}
         </div>

@@ -25,6 +25,8 @@ export default function SettingForm({ onSubmit, initialData = {} }) {
           prefix="+94"
           value={contactWhatsapp}
           onChange={(e) => setContactWhatsapp(e.target.value)}
+          maxLength={255}
+          required={true}
         />
 
         <SubmitButton text="Save" />

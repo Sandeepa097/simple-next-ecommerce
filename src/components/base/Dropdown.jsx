@@ -24,6 +24,7 @@ export default function Dropdown({
   placeholder,
   value,
   onChange,
+  required = false,
 }) {
   const [dropdownOpened, setDropdownOpened] = useState(false);
 
@@ -45,6 +46,7 @@ export default function Dropdown({
             id={name}
             placeholder={placeholder}
             className="px-4 appearance-none outline-none text-gray-800 w-full cursor-pointer bg-gray-50 group-hover:bg-gray-100"
+            required={required}
             readOnly
           />
 

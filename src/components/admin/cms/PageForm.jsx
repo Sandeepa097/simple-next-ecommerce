@@ -29,6 +29,8 @@ export default function PageForm({ onSubmit, initialData = {} }) {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Enter the page title"
+          maxLength={255}
+          required={true}
         />
         <TextInput
           label="Body Summary"
@@ -37,6 +39,7 @@ export default function PageForm({ onSubmit, initialData = {} }) {
           isTextarea
           onChange={(e) => setBodySummary(e.target.value)}
           placeholder="Enter a summary of the body"
+          required={true}
         />
         <RichTextEditor
           label="Body"
@@ -44,6 +47,7 @@ export default function PageForm({ onSubmit, initialData = {} }) {
           value={body}
           onChange={(e) => setBody(e.target.value)}
           placeholder="Enter the body content"
+          required={true}
         />
         <TextInput
           label="SEO Title"
@@ -51,6 +55,8 @@ export default function PageForm({ onSubmit, initialData = {} }) {
           value={seoTitle}
           onChange={(e) => setSeoTitle(e.target.value)}
           placeholder="Enter the SEO title"
+          maxLength={255}
+          required={true}
         />
         <TextInput
           label="SEO Description"
@@ -59,6 +65,7 @@ export default function PageForm({ onSubmit, initialData = {} }) {
           isTextarea
           onChange={(e) => setSeoDescription(e.target.value)}
           placeholder="Enter the SEO description"
+          required={true}
         />
         <SubmitButton text={initialData?.id ? 'Update' : 'Create'} />
       </Card>

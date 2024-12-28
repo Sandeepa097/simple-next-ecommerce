@@ -201,6 +201,8 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
           placeholder="Enter the product title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          maxLength={255}
+          required={true}
         />
 
         <TextInput
@@ -210,6 +212,7 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
           value={description}
           isTextarea
           onChange={(e) => setDescription(e.target.value)}
+          required={true}
         />
 
         <RichTextEditor
@@ -218,6 +221,7 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
           placeholder="Enter the product description"
           value={descriptionHtml}
           onChange={(e) => setDescriptionHtml(e.target.value)}
+          required={true}
         />
 
         <CheckBox
@@ -265,6 +269,7 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
           multiple={false}
           onUpload={handleFeaturedImageUpload}
           onRemove={(image) => setFeaturedImage(null)}
+          required={true}
         />
 
         <Dropzone
@@ -291,6 +296,8 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
           placeholder="Enter the SEO title"
           value={seoTitle}
           onChange={(e) => setSeoTitle(e.target.value)}
+          maxLength={255}
+          required={true}
         />
 
         <TextInput
@@ -300,6 +307,7 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
           value={seoDescription}
           isTextarea
           onChange={(e) => setSeoDescription(e.target.value)}
+          required={true}
         />
 
         <AttributeSelector

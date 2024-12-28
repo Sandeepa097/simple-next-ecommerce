@@ -27,6 +27,8 @@ export default function CollectionForm({ onSubmit, initialData = {} }) {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Enter the collection title"
+          maxLength={255}
+          required={true}
         />
         <TextInput
           label="Description"
@@ -35,6 +37,7 @@ export default function CollectionForm({ onSubmit, initialData = {} }) {
           isTextarea
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Enter the collection description"
+          required={true}
         />
         <TextInput
           label="SEO Title"
@@ -42,6 +45,8 @@ export default function CollectionForm({ onSubmit, initialData = {} }) {
           value={seoTitle}
           onChange={(e) => setSeoTitle(e.target.value)}
           placeholder="Enter the SEO title"
+          maxLength={255}
+          required={true}
         />
         <TextInput
           label="SEO Description"
@@ -50,6 +55,7 @@ export default function CollectionForm({ onSubmit, initialData = {} }) {
           isTextarea
           onChange={(e) => setSeoDescription(e.target.value)}
           placeholder="Enter the SEO description"
+          required={true}
         />
         <SubmitButton text={initialData?.id ? 'Update' : 'Create'} />
       </Card>

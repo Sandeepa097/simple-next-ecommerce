@@ -22,6 +22,8 @@ export default function AttributeForm({ onSubmit, initialData = {} }) {
           placeholder="Enter the attribute name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          maxLength={255}
+          required={true}
         />
 
         <SubmitButton text={initialData?.id ? 'Update' : 'Create'} />
