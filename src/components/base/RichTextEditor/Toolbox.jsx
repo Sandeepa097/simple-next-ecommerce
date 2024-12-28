@@ -73,22 +73,6 @@ const Toolbox = ({ editor }) => {
         }`}>
         <FaListOl />
       </button>
-      <select
-        onChange={(e) =>
-          editor.chain().focus().setFontSize(e.target.value).run()
-        }
-        className="p-2 rounded bg-gray-100">
-        <option value="">Font Size</option>
-        <option value="12px">12px</option>
-        <option value="16px">16px</option>
-        <option value="20px">20px</option>
-        <option value="24px">24px</option>
-      </select>
-      <input
-        type="color"
-        onChange={(e) => editor.chain().focus().setColor(e.target.value).run()}
-        className="p-2 rounded bg-gray-100"
-      />
     </div>
   );
 };
