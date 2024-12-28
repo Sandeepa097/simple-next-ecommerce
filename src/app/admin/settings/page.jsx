@@ -1,9 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import FormWrapper from '../../../components/base/FormWrapper';
-import Input from '../../../components/base/Input';
-import Button from '../../../components/base/Button';
+import SettingForm from '../../../components/admin/cms/SettingForm';
 
 export default function Page() {
   const [contactWhatsapp, setContactWhatsapp] = useState('');
@@ -24,14 +22,14 @@ export default function Page() {
     return null;
   }
 
-  async function handleSubmit(e) {
+  async function handleSubmit(settings) {
     e.preventDefault();
     const res = await fetch('/api/admin/settings', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ contactWhatsapp }),
+      body: JSON.stringify(settings),
     });
 
     if (res.ok) {
@@ -53,25 +51,6 @@ export default function Page() {
   }, []);
 
   return (
-    <div>
-      <FormWrapper>
-        <h2 className="text-2xl font-semibold text-center text-gray-700 mb-6">
-          Settings
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <Input
-            className="mt-2"
-            type="text"
-            placeholder="Whatsapp Number"
-            value={contactWhatsapp}
-            prefix="+94"
-            onChange={(e) => setContactWhatsapp(e.target.value)}
-          />
-          <Button className="mt-2" type="submit">
-            Save
-          </Button>
-        </form>
-      </FormWrapper>
-    </div>
+    <SettingForm onSubmit={handleSubmit} initialData={{ contactWhatsapp }} />
   );
 }

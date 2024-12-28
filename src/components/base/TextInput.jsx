@@ -7,6 +7,7 @@ export default function TextInput({
   onChange,
   placeholder,
   isTextarea = false,
+  prefix,
 }) {
   return (
     <div className={`md:col-span-5 ${className}`}>
@@ -23,15 +24,26 @@ export default function TextInput({
           value={value}
         />
       ) : (
-        <input
-          type={type}
-          name={name}
-          id={name}
-          onChange={onChange}
-          placeholder={placeholder}
-          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 hover:bg-gray-100"
-          value={value}
-        />
+        <div className="flex">
+          {prefix ? (
+            <span className="mt-1 inline-flex items-center px-3 text-sm text-gray-900 rounded-e-0 rounded-s-md bg-gray-200">
+              {prefix}
+            </span>
+          ) : (
+            <></>
+          )}
+          <input
+            type={type}
+            name={name}
+            id={name}
+            onChange={onChange}
+            placeholder={placeholder}
+            className={`h-10 border mt-1 px-4 w-full bg-gray-50 hover:bg-gray-100 ${
+              prefix ? 'rounded-r-md rounded-l-none' : 'rounded'
+            }`}
+            value={value}
+          />
+        </div>
       )}
     </div>
   );
