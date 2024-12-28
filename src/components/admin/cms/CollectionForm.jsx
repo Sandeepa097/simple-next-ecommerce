@@ -20,11 +20,7 @@ export default function CollectionForm({ onSubmit, initialData = {} }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Card
-        title="New Collection"
-        description="Create a new collection"
-        subTitle="Collection Details"
-        subDescription="Please fill out all the fields.">
+      <Card title="New Collection" description="Create a new collection">
         <TextInput
           label="Title"
           name="title"

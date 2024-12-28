@@ -15,11 +15,7 @@ export default function AttributeForm({ onSubmit, initialData = {} }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Card
-        title="New Attribute"
-        description="Create a new attribute"
-        subTitle="Attribute Details"
-        subDescription="Please fill out all the fields.">
+      <Card title="New Attribute" description="Create a new attribute">
         <TextInput
           label="Name"
           name="name"

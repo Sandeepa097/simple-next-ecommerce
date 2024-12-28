@@ -21,11 +21,7 @@ export default function PageForm({ onSubmit, initialData = {} }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <Card
-        title="New Page"
-        description="Create a new page"
-        subTitle="Page Details"
-        subDescription="Please fill out all the fields.">
+      <Card title="New Page" description="Create a new page">
         <TextInput
           label="Title"
           name="title"

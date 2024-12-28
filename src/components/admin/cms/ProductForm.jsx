@@ -23,9 +23,23 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
     initialData.collectionId || ''
   );
   const [featuredImage, setFeaturedImage] = useState(
-    initialData.featuredImageUrl || ''
+    initialData.featuredImageUrl
+      ? {
+          url: `/api/files/products/${initialData.featuredImageUrl}`,
+          name: initialData.featuredImageUrl,
+        }
+      : null
   );
-  const [images, setImages] = useState([]);
+  const [uploadingFeaturedImage, setUploadingFeaturedImage] = useState('');
+  const [images, setImages] = useState(
+    initialData.images && initialData.images.length
+      ? initialData.images.map((image) => ({
+          url: `/api/files/products/${image.url}`,
+          name: image.url,
+        }))
+      : []
+  );
+  const [uploadingImages, setUploadingImages] = useState([]);
   const [availableForSale, setAvailableForSale] = useState(
     initialData.availableForSale ||
       (initialData.availableForSale !== false && true)
@@ -40,18 +54,6 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
       : []
   );
   const [variants, setVariants] = useState([]);
-
-  const imagesSetter = (file) => {
-    setImages([...images, file]);
-  };
-
-  const setInitialImages = (data) => {
-    setImages(
-      data.images && data.images.length
-        ? data.images.map((image) => image.url)
-        : []
-    );
-  };
 
   const setInitialSelectedAttributes = (data) => {
     setSelectedAttributes(
@@ -81,28 +83,33 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
     );
   };
 
-  const handleUpload = (file, url) => {
-    console.log('Uploaded file:', file);
-    console.log('File URL:', url);
+  const handleFeaturedImageUpload = (file, url) => {
+    setFeaturedImage(null);
+    setUploadingFeaturedImage(url);
+    uploadFileToServer(file).then((name) => {
+      setFeaturedImage({ name, url: `/api/admin/files/temp/${name}` });
+      setUploadingFeaturedImage('');
+    });
   };
 
-  const handleFileUpload = async (e, setter, multiple = false) => {
-    if (multiple) {
-      Array.from(e.target.files).forEach((file) => {
-        handleFileUpload(
-          {
-            ...e,
-            target: {
-              ...e.target,
-              files: [file],
-            },
-          },
-          setter
-        );
-      });
-    }
+  const handleImageUpload = (file, url) => {
+    setUploadingImages((prevUploadingImages) => [...prevUploadingImages, url]);
+
+    uploadFileToServer(file).then((name) => {
+      setImages((prevImages) => [
+        ...prevImages,
+        { name, url: `/api/admin/files/temp/${name}` },
+      ]);
+
+      setUploadingImages((prevUploadingImages) =>
+        prevUploadingImages.filter((image) => image !== url)
+      );
+    });
+  };
+
+  const uploadFileToServer = async (file) => {
     const formData = new FormData();
-    formData.append('file', e.target.files[0]);
+    formData.append('file', file);
 
     const response = await fetch('/api/admin/files/temp', {
       method: 'POST',
@@ -111,10 +118,10 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
 
     if (response.ok) {
       const data = await response.json();
-      setter(data.name);
-    } else {
-      alert('Failed to upload file');
+      return data.name;
     }
+
+    return '';
   };
 
   const handleSubmit = async (e) => {
@@ -124,8 +131,8 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
       description,
       descriptionHtml,
       collectionId,
-      featuredImage,
-      images,
+      featuredImage: featuredImage?.name || '',
+      images: images.map((image) => image.name),
       availableForSale,
       seoTitle,
       seoDescription,
@@ -179,18 +186,13 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
 
   useEffect(() => {
     if (!initialData.id) return;
-    setInitialImages(initialData);
     setInitialSelectedAttributes(initialData);
     setInitialVariants(initialData);
   }, [initialData]);
 
   return (
     <form onSubmit={handleSubmit}>
-      <Card
-        title="New Product"
-        description="Create a new product"
-        subTitle="Product Details"
-        subDescription="Please fill out all the fields.">
+      <Card title="New Product" description="Create a new product">
         <TextInput
           label="Title"
           name="title"
@@ -241,29 +243,46 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
         <Dropzone
           label="Featured Image"
           name="featuredImage"
+          images={
+            featuredImage
+              ? [
+                  {
+                    url: featuredImage.url,
+                    name: 'Featured Image',
+                  },
+                ]
+              : uploadingFeaturedImage
+              ? [
+                  {
+                    url: uploadingFeaturedImage,
+                    name: 'Uploading...',
+                    uploading: true,
+                  },
+                ]
+              : []
+          }
           multiple={false}
-          onUpload={handleUpload}
+          onUpload={handleFeaturedImageUpload}
+          onRemove={(image) => setFeaturedImage(null)}
         />
 
-        <div>
-          <label className="block text-sm font-medium">Featured Image</label>
-          <input
-            type="file"
-            onChange={(e) => handleFileUpload(e, setFeaturedImage)}
-            className="w-full mt-1 border rounded p-2"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium">Additional Images</label>
-          <input
-            type="file"
-            onChange={(e) => handleFileUpload(e, imagesSetter, true)}
-            className="w-full mt-1 border rounded p-2"
-            multiple
-          />
-        </div>
+        <Dropzone
+          label="Additional Images"
+          name="additionalImages"
+          images={[
+            ...images,
+            ...uploadingImages.map((url) => ({
+              url,
+              name: 'Uploading...',
+              uploading: true,
+            })),
+          ]}
+          multiple={true}
+          onUpload={handleImageUpload}
+          onRemove={(image) =>
+            setImages(images.filter((img) => img.name !== image.name))
+          }
+        />
 
         <TextInput
           label="SEO Title"

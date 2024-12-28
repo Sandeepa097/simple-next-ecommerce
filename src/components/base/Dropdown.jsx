@@ -38,7 +38,9 @@ export default function Dropdown({
           className="group h-10 flex border border-gray-200 rounded items-center bg-gray-50 hover:bg-gray-100"
           onClick={() => setDropdownOpened(!dropdownOpened)}>
           <input
-            value={value ? items.find((item) => item.value === value).text : ''}
+            value={
+              value ? items.find((item) => item.value === value)?.text : ''
+            }
             name={name}
             id={name}
             placeholder={placeholder}
