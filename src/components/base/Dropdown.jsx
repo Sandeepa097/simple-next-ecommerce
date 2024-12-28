@@ -46,8 +46,10 @@ export default function Dropdown({
             id={name}
             placeholder={placeholder}
             className="px-4 appearance-none outline-none text-gray-800 w-full cursor-pointer bg-gray-50 group-hover:bg-gray-100"
+            onKeyDown={(e) => e.preventDefault()}
+            onChange={() => {}}
+            style={{ pointerEvents: 'none', caretColor: 'transparent' }}
             required={required}
-            readOnly
           />
 
           <div
