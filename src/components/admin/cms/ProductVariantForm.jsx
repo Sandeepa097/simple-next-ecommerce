@@ -84,7 +84,7 @@ export default function ProductVariantForm({
             label="Available for Sale"
             name={'availableForSale' + index}
             description="This variant is available for sale"
-            checked={availableForSale}
+            checked={variant.availableForSale}
             onChange={(e) =>
               handleVariantChange(index, 'availableForSale', e.target.checked)
             }

@@ -3,7 +3,7 @@ export default function CheckBox({
   label,
   description,
   name,
-  value,
+  checked,
   onChange,
 }) {
   return (
@@ -17,7 +17,7 @@ export default function CheckBox({
             name={name}
             id={name}
             type="checkbox"
-            checked={value}
+            checked={checked}
             onChange={onChange}
             className="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-slate-800 checked:border-slate-800"
           />

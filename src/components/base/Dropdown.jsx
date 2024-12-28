@@ -26,7 +26,6 @@ export default function Dropdown({
   onChange,
 }) {
   const [dropdownOpened, setDropdownOpened] = useState(false);
-  console.log('dropdownOpened', dropdownOpened);
 
   return (
     <div className={`md:col-span-5 ${className}`}>

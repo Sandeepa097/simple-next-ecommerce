@@ -42,7 +42,9 @@ export default function ProductForm({ onSubmit, initialData = {} }) {
   const [uploadingImages, setUploadingImages] = useState([]);
   const [availableForSale, setAvailableForSale] = useState(
     initialData.availableForSale ||
-      (initialData.availableForSale !== false && true)
+      (initialData.availableForSale !== false &&
+        initialData.availableForSale !== 0 &&
+        true)
   );
   const [seoTitle, setSeoTitle] = useState(initialData.seoTitle || '');
   const [seoDescription, setSeoDescription] = useState(
