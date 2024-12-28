@@ -12,6 +12,10 @@ export async function middleware(request) {
     }
     return NextResponse.redirect(new URL('/auth', request.url));
   }
+
+  if (request.nextUrl.pathname === '/admin') {
+    return NextResponse.redirect(new URL('/admin/products', request.url));
+  }
 }
 
 export const config = {

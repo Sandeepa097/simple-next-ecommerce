@@ -5,6 +5,7 @@ import CollectionMenuIcon from '../../icons/CollectionMenuIcon';
 import PageMenuIcon from '../../icons/PageMenuIcon';
 import ProductMenuIcon from '../../icons/ProductMenuIcon';
 import SettingMenuIcon from '../../icons/SettingMenuIcon';
+import LogoutButton from './LogoutButton';
 import NavigationItem from './NavigationItem';
 
 export default function NavigationMenu({ children }) {
@@ -66,6 +67,7 @@ export default function NavigationMenu({ children }) {
             {items.map((item) => (
               <NavigationItem key={item.id} {...item} />
             ))}
+            <LogoutButton />
           </ul>
         </div>
       </aside>
