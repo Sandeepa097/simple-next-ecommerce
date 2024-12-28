@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { IoIosRemove } from 'react-icons/io';
 import { IoCloudUploadOutline } from 'react-icons/io5';
@@ -14,7 +14,10 @@ export default function Dropzone({
   multiple = false,
   onUpload,
   onRemove,
+  required = false,
 }) {
+  const proxyInputRef = useRef(null);
+
   const onDrop = useCallback(
     (acceptedFiles) => {
       acceptedFiles.forEach((file) => {
@@ -37,7 +40,31 @@ export default function Dropzone({
         {label}
       </label>
       <div className="border p-4 text-center cursor-pointer bg-gray-50 hover:bg-gray-100">
-        <input name={name} id={name} {...getInputProps()} />
+        <input
+          ref={proxyInputRef}
+          style={{
+            opacity: 0,
+            height: '1px',
+            display: 'block',
+          }}
+          type="text"
+          name={name + 'Proxy'}
+          value={images && images.length ? 'Proxy fill' : ''}
+          onChange={() => {}}
+          onInvalid={(e) => e.target.setCustomValidity('Please select a file.')}
+          required={required}
+        />
+        <input
+          name={name}
+          id={name}
+          {...getInputProps({
+            onChange: () => {
+              if (proxyInputRef.current) {
+                proxyInputRef.current.setCustomValidity('');
+              }
+            },
+          })}
+        />
         <div className="flex justify-center items-center flex-wrap min-h-20 gap-2">
           {images.map((image, index) => (
             <div key={index} className="relative">
