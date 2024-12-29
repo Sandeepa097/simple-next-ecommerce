@@ -48,6 +48,7 @@ export default function TextInput({
             }`}
             value={value}
             min={min}
+            onWheel={(e) => e.target.blur()}
             maxLength={maxLength}
             required={required}
           />
