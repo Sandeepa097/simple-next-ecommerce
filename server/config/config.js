@@ -14,6 +14,7 @@ const DB_PASSWORD = process.env.DB_PASSWORD;
 const SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
 const SESSION_SECRET =
   process.env.SESSION_SECRET || 'zzVFWmWDtidtnvyTZyNYNNpkeZPoExxD';
+const SESSION_TTL = Number(process.env.SESSION_TTL);
 
 module.exports = {
   NODE_ENV,
@@ -27,4 +28,5 @@ module.exports = {
   DB_PASSWORD,
   SALT_ROUNDS,
   SESSION_SECRET,
+  SESSION_TTL,
 };
