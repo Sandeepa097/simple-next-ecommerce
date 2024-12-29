@@ -13,7 +13,7 @@ export default function Page({ user }) {
     });
 
     if (res.ok) {
-      redirect('/admin/auth');
+      redirect('/auth');
     } else {
       alert('Something went wrong');
     }

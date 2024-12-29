@@ -16,7 +16,7 @@ export default function LogoutButton() {
     });
 
     if (res.ok) {
-      redirect('/admin/auth');
+      redirect('/auth');
     } else {
       alert('Something went wrong');
     }
