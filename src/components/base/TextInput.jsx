@@ -10,6 +10,7 @@ export default function TextInput({
   prefix,
   min,
   maxLength,
+  step = undefined,
   required,
 }) {
   return (
@@ -48,6 +49,7 @@ export default function TextInput({
             }`}
             value={value}
             min={min}
+            step={step}
             onWheel={(e) => e.target.blur()}
             maxLength={maxLength}
             required={required}

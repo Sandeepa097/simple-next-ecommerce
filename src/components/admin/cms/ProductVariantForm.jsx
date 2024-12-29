@@ -111,6 +111,7 @@ export default function ProductVariantForm({
               handleVariantChange(index, 'price', e.target.value)
             }
             min={0}
+            step=".01"
             required={true}
           />
           <CheckBox
