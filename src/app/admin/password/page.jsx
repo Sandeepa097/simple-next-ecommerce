@@ -13,7 +13,7 @@ export default function Page() {
     });
 
     if (res.ok) {
-      alert('Password updated successfully');
+      window.location.href = '/admin/settings';
     } else {
       if (res.status === 401) {
         alert('Old password is incorrect');
