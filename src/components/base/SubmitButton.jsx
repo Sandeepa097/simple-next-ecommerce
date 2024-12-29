@@ -4,7 +4,7 @@ export default function SubmitButton({ text }) {
       <div className="inline-flex items-end">
         <button
           type="submit"
-          className="mt-2 bg-gray-500 dark:bg-gray-800 hover:bg-gray-10 text-white font-bold py-2 px-4 rounded">
+          className="mt-2 bg-gray-800 hover:bg-gray-10 text-white font-bold py-2 px-4 rounded">
           {text}
         </button>
       </div>

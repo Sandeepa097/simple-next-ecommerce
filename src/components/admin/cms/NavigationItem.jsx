@@ -19,9 +19,9 @@ export default function NavigationItem({ Icon, url, title }) {
     <li>
       <a
         href={url}
-        className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white ${
+        className={`flex items-center p-2 rounded-lg text-white ${
           isActive ? 'bg-gray-700' : ''
-        } hover:bg-gray-100 dark:hover:bg-gray-700 group`}>
+        } hover:bg-gray-700 group`}>
         <Icon />
         <span className="ms-3">{title}</span>
       </a>

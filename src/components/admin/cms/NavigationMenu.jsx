@@ -51,7 +51,7 @@ export default function NavigationMenu({ children }) {
         id="default-sidebar"
         className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 display-none"
         aria-label="Sidebar">
-        <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+        <div className="h-full px-3 py-4 overflow-y-auto bg-gray-800">
           <div className="flex justify-start pb-6 px-2 items-center">
             <Image src="/favicon.ico" alt="App logo" width={32} height={32} />
             <p className="ms-3 font-large text-white">{appName}</p>
