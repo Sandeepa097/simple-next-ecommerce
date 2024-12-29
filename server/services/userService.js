@@ -11,7 +11,7 @@ const findOne = async (where) => {
 };
 
 const update = async (data, where) => {
-  return await User.update(data, { where });
+  return await User.update(data, { where, individualHooks: true });
 };
 
 module.exports = {
