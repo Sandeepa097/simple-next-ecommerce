@@ -13,7 +13,7 @@ const {
 } = require('../services/graphqlService');
 
 const getHeaderMenu = async () => {
-  const firstTwoCollections = await getCollections(4);
+  const firstTwoCollections = await getCollections(3);
   return [
     { title: 'All', url: '/collections' },
     ...firstTwoCollections.map((collection) => ({
