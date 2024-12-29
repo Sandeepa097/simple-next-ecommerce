@@ -67,7 +67,7 @@ export default function Index({
           }
           p {
             padding: 0;
-            line-height: 0.5;
+            line-height: 1.5;
           }
         `}
           </style>
