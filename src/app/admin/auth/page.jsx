@@ -1,6 +1,6 @@
 'use client';
 
-import LoginForm from '../../components/admin/cms/LoginForm';
+import LoginForm from '../../../components/admin/cms/LoginForm';
 
 export default function Page() {
   async function handleSubmit({ username, password }) {

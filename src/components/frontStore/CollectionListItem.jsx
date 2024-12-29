@@ -1,7 +1,7 @@
-export default function CollectionListItem({ name, urlKey, image }) {
+export default function CollectionListItem({ name, id, image }) {
   return (
     <a
-      href={`/${urlKey}`}
+      href={`/${id}`}
       className="rounded-lg border border-gray-400 bg-white p-6 shadow-sm">
       <div className="h-28">
         <img

@@ -2,12 +2,12 @@ const { findOne } = require('../../../../server/services/collectionService');
 
 export default async function handler(req, res) {
   const { method } = req;
-  const { urlKey } = req.query;
+  const { id } = req.query;
 
   switch (method) {
     case 'GET':
       try {
-        const collection = await findOne({ urlKey });
+        const collection = await findOne({ id });
         res.status(200).json(collection);
       } catch (error) {
         res.status(500).json({ message: 'Error fetching collection' });

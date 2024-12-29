@@ -7,13 +7,19 @@ export async function middleware(request) {
   const session = await getIronSession(await cookies(), sessionOptions);
 
   if (!session?.user) {
+    if (request.nextUrl.pathname === '/admin/auth') {
+      return NextResponse.next();
+    }
     if (request.nextUrl.pathname.startsWith('/api')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
-    return NextResponse.redirect(new URL('/auth', request.url));
+    return NextResponse.redirect(new URL('/admin/auth', request.url));
   }
 
-  if (request.nextUrl.pathname === '/admin') {
+  if (
+    request.nextUrl.pathname === '/admin' ||
+    request.nextUrl.pathname === '/admin/auth'
+  ) {
     return NextResponse.redirect(new URL('/admin/products', request.url));
   }
 }

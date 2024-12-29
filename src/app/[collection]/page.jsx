@@ -1,7 +1,4 @@
-'use client';
-
-import { useParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { notFound } from 'next/navigation';
 import ProductFilterButton from '../../components/frontStore/ProductFilterButton';
 import ProductListing from '../../components/frontStore/ProductListing';
 import ProductListingNavBar from '../../components/frontStore/ProductListingNavBar';
@@ -9,20 +6,22 @@ import FilterButtonIcon from '../../components/icons/FilterButtonIcon';
 import SortButtonIcon from '../../components/icons/SortButtonIcon';
 import ProductSearchBar from '../../components/frontStore/ProductSearchBar';
 
-export default function Page() {
-  const params = useParams();
-  const [collection, setCollection] = useState(null);
-  const [products, setProducts] = useState([]);
+export default async function Page(props) {
+  const params = await props.params;
+  const collectionResponse = await fetch(
+    `${process.env.NEXT_PUBLIC_ORIGIN}/api/collections/${params.collection}`
+  );
 
-  useEffect(() => {
-    fetch(`/api/collections/${params.collection}`)
-      .then((res) => res.json())
-      .then((data) => setCollection(data));
+  if (!collectionResponse.ok) {
+    return notFound();
+  }
 
-    fetch(`/api/collections/${params.collection}/products`)
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, [params]);
+  const collection = await collectionResponse.json();
+
+  const productsResponse = await fetch(
+    `${process.env.NEXT_PUBLIC_ORIGIN}/api/collections/${params.collection}/products`
+  );
+  const products = await productsResponse.json();
 
   return (
     <div>

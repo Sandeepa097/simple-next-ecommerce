@@ -18,7 +18,7 @@ export default function CollectionListing() {
         {collections.map((collection) => (
           <CollectionListItem
             key={collection.id}
-            urlKey={collection.urlKey}
+            id={collection.id}
             name={collection.name}
             image={collection.image}
           />

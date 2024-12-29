@@ -2,7 +2,7 @@ export default function ProductListItem({ product }) {
   return (
     <div className="rounded-lg border border-gray-400 bg-white p-6 shadow-sm">
       <div className="h-28 w-full">
-        <a href={`/products/${product.urlKey}`}>
+        <a href={`/products/${product.id}`}>
           <img
             className="mx-auto h-full"
             src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg"
@@ -50,7 +50,7 @@ export default function ProductListItem({ product }) {
         </div>
 
         <a
-          href={`/products/${product.urlKey}`}
+          href={`/products/${product.id}`}
           className="text-lg font-semibold leading-tight text-gray-900 hover:underline">
           {product.name}
         </a>

@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 export default function Page({ user }) {
   async function handleSubmit(e) {
     e.preventDefault();
-    const res = await fetch('/api/auth/logout', {
+    const res = await fetch('/api/admin/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -13,7 +13,7 @@ export default function Page({ user }) {
     });
 
     if (res.ok) {
-      redirect('/auth');
+      redirect('/admin/auth');
     } else {
       alert('Something went wrong');
     }

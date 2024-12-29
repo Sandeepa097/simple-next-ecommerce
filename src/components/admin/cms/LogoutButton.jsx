@@ -8,7 +8,7 @@ export default function LogoutButton() {
     e.preventDefault();
     const confirm = window.confirm('Are you sure you want to logout?');
     if (!confirm) return;
-    const res = await fetch('/api/auth/logout', {
+    const res = await fetch('/api/admin/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ export default function LogoutButton() {
     });
 
     if (res.ok) {
-      redirect('/auth');
+      redirect('/admin/auth');
     } else {
       alert('Something went wrong');
     }
