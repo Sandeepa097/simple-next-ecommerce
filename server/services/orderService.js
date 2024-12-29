@@ -25,7 +25,7 @@ const getCheckOutUrl = async (productId, url) => {
     attributes: ['contactWhatsapp'],
   });
 
-  return `https://wa.me/${admin.contactWhatsapp}?text=${encodeURIComponent(
+  return `https://wa.me/94${admin.contactWhatsapp}?text=${encodeURIComponent(
     whatsappMessage
   )}`;
 };
