@@ -46,6 +46,29 @@ export default function Listing({ items, emptyMessage, actionUrl }) {
     }
   }
 
+  async function onChangeStar(id, value) {
+    try {
+      const response = await fetch(`${actionUrl}/${id}/star`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          isStar: value,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update star status');
+      }
+
+      const updatedItem = updatedItems.find((item) => item.id === id);
+      updatedItem.isStar = value;
+
+      setUpdatedItems([...updatedItems]);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className="mt-2">
       {(!updatedItems || !updatedItems.length) && (
@@ -57,6 +80,7 @@ export default function Listing({ items, emptyMessage, actionUrl }) {
           item={item}
           onDelete={onDelete}
           onChangeFavorite={onChangeFavorite}
+          onChangeStar={onChangeStar}
         />
       ))}
     </div>

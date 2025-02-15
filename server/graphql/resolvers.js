@@ -3,6 +3,7 @@ const {
   findCollection,
   getCollectionProducts,
   getFavoriteProducts,
+  getStarProducts,
   getProductImages,
   findProduct,
   getProducts,
@@ -121,11 +122,15 @@ const resolvers = {
   },
   Collection: {
     products: async (collection, { sortKey, reverse, first }) => {
-      const retrieveFavorites =
-        collection.id === 'hidden-homepage-carousel' ||
-        collection.id === 'hidden-homepage-featured-items';
+      const retrieveFavorites = collection.id === 'hidden-homepage-carousel';
+      const retrieveStars = collection.id === 'hidden-homepage-featured-items';
       const products = retrieveFavorites
         ? await getFavoriteProducts(first, {
+            name: sortKey,
+            reverse,
+          })
+        : retrieveStars
+        ? await getStarProducts(first, {
             name: sortKey,
             reverse,
           })

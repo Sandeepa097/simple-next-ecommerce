@@ -31,6 +31,7 @@ async function ProductList({ searchParams }) {
       title: product.title,
       description: product.description,
       isFavorite: product.isFavorite,
+      isStar: product.isStar,
       image: {
         url: `/api/files/products/${product.featuredImageUrl}`,
         altText: product.featuredImageAltText,
@@ -42,6 +43,7 @@ async function ProductList({ searchParams }) {
         href: `/admin/products/edit?key=${product.id}`,
       },
       favoriteButton: true,
+      starButton: true,
     }));
 
     return (

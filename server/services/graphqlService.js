@@ -121,6 +121,26 @@ const getFavoriteProducts = async (first, sortKey) => {
   });
 };
 
+const getStarProducts = async (first, sortKey) => {
+  return await Product.findAll({
+    where: { isStar: true },
+    include: {
+      model: ProductVariant,
+      as: 'variants',
+      include: {
+        model: ProductVariantAttributeValue,
+        as: 'selectedOptions',
+        include: {
+          model: Attribute,
+          as: 'attribute',
+        },
+      },
+    },
+    ...orderDecider(sortKey),
+    limit: first,
+  });
+};
+
 const findProduct = async (handle) => {
   return await Product.findOne({
     where: { handle },
@@ -226,6 +246,7 @@ module.exports = {
   getRandomCollection,
   getCollectionProducts,
   getFavoriteProducts,
+  getStarProducts,
   findProduct,
   getProducts,
   getProductVariants,

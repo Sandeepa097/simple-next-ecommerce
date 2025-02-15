@@ -2,11 +2,28 @@ import Image from 'next/image';
 import Link from 'next/link';
 import HeartOutlined from '../../icons/HeartOutlined';
 import HeartFilled from '../../icons/HeartFilled';
+import StarFilled from '../../icons/StarFilled';
+import StarOutlined from '../../icons/StarOutlined';
 
-export default function ListingItem({ item, onDelete, onChangeFavorite }) {
+export default function ListingItem({
+  item,
+  onDelete,
+  onChangeFavorite,
+  onChangeStar,
+}) {
   return (
     <div className="flex justify-between items-center p-4 border-b">
       <div className="flex justify-start items-center gap-4">
+        {item.starButton ? (
+          <button
+            type="button"
+            onClick={() => onChangeStar(item.id, !item.isStar)}
+            className="px-1">
+            {item.isStar ? <StarFilled /> : <StarOutlined />}
+          </button>
+        ) : (
+          <></>
+        )}
         {item.favoriteButton ? (
           <button
             type="button"

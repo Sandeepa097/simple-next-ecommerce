@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       descriptionHtml: DataTypes.TEXT,
       availableForSale: DataTypes.BOOLEAN,
       isFavorite: DataTypes.BOOLEAN,
+      isStar: DataTypes.BOOLEAN,
       featuredImageUrl: DataTypes.STRING,
       featuredImageAltText: DataTypes.STRING,
       featuredImageWidth: DataTypes.INTEGER,
