@@ -1,9 +1,8 @@
 const {
   getCollections,
   findCollection,
-  getRandomCollection,
   getCollectionProducts,
-  getProductVariants,
+  getFavoriteProducts,
   getProductImages,
   findProduct,
   getProducts,
@@ -56,12 +55,15 @@ const resolvers = {
       };
     },
     collection: async (_, { handle }) => {
-      const getRandom =
+      const responseSame =
         handle === 'hidden-homepage-carousel' ||
         handle === 'hidden-homepage-featured-items';
 
-      return getRandom
-        ? await getRandomCollection()
+      return responseSame
+        ? {
+            id: handle,
+            handle,
+          }
         : await findCollection(handle);
     },
     menu: async (_, { handle }) => {
@@ -119,10 +121,18 @@ const resolvers = {
   },
   Collection: {
     products: async (collection, { sortKey, reverse, first }) => {
-      const products = await getCollectionProducts(collection.id, first, {
-        name: sortKey,
-        reverse,
-      });
+      const retrieveFavorites =
+        collection.id === 'hidden-homepage-carousel' ||
+        collection.id === 'hidden-homepage-featured-items';
+      const products = retrieveFavorites
+        ? await getFavoriteProducts(first, {
+            name: sortKey,
+            reverse,
+          })
+        : await getCollectionProducts(collection.id, first, {
+            name: sortKey,
+            reverse,
+          });
 
       return {
         edges: products.map((product) => ({

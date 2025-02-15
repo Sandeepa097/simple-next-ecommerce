@@ -101,6 +101,26 @@ const getCollectionProducts = async (collectionId, first, sortKey) => {
   });
 };
 
+const getFavoriteProducts = async (first, sortKey) => {
+  return await Product.findAll({
+    where: { isFavorite: true },
+    include: {
+      model: ProductVariant,
+      as: 'variants',
+      include: {
+        model: ProductVariantAttributeValue,
+        as: 'selectedOptions',
+        include: {
+          model: Attribute,
+          as: 'attribute',
+        },
+      },
+    },
+    ...orderDecider(sortKey),
+    limit: first,
+  });
+};
+
 const findProduct = async (handle) => {
   return await Product.findOne({
     where: { handle },
@@ -205,6 +225,7 @@ module.exports = {
   findCollection,
   getRandomCollection,
   getCollectionProducts,
+  getFavoriteProducts,
   findProduct,
   getProducts,
   getProductVariants,

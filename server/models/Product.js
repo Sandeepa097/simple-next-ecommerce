@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       description: DataTypes.TEXT,
       descriptionHtml: DataTypes.TEXT,
       availableForSale: DataTypes.BOOLEAN,
+      isFavorite: DataTypes.BOOLEAN,
       featuredImageUrl: DataTypes.STRING,
       featuredImageAltText: DataTypes.STRING,
       featuredImageWidth: DataTypes.INTEGER,

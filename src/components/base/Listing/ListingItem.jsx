@@ -1,10 +1,22 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import HeartOutlined from '../../icons/HeartOutlined';
+import HeartFilled from '../../icons/HeartFilled';
 
-export default function ListingItem({ item, onDelete }) {
+export default function ListingItem({ item, onDelete, onChangeFavorite }) {
   return (
     <div className="flex justify-between items-center p-4 border-b">
       <div className="flex justify-start items-center gap-4">
+        {item.favoriteButton ? (
+          <button
+            type="button"
+            onClick={() => onChangeFavorite(item.id, !item.isFavorite)}
+            className="px-1">
+            {item.isFavorite ? <HeartFilled /> : <HeartOutlined />}
+          </button>
+        ) : (
+          <></>
+        )}
         {item.image ? (
           <div>
             <Image

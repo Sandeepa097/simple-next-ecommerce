@@ -31,7 +31,7 @@ async function PageList() {
         headerTitle="Pages"
         emptyMessage="No pages found"
         newButton={{ href: '/admin/pages/new', text: 'New Page' }}
-        deleteUrl={`${process.env.NEXT_PUBLIC_ORIGIN}/api/admin/pages`}
+        actionUrl={`${process.env.NEXT_PUBLIC_ORIGIN}/api/admin/pages`}
       />
     );
   } catch (error) {

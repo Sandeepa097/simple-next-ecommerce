@@ -30,6 +30,7 @@ async function ProductList({ searchParams }) {
       id: product.id,
       title: product.title,
       description: product.description,
+      isFavorite: product.isFavorite,
       image: {
         url: `/api/files/products/${product.featuredImageUrl}`,
         altText: product.featuredImageAltText,
@@ -40,6 +41,7 @@ async function ProductList({ searchParams }) {
         text: 'Edit',
         href: `/admin/products/edit?key=${product.id}`,
       },
+      favoriteButton: true,
     }));
 
     return (
@@ -52,7 +54,7 @@ async function ProductList({ searchParams }) {
           headerTitle="Products"
           emptyMessage="No products found"
           newButton={{ href: '/admin/products/new', text: 'New Product' }}
-          deleteUrl={`${process.env.NEXT_PUBLIC_ORIGIN}/api/admin/products`}
+          actionUrl={`${process.env.NEXT_PUBLIC_ORIGIN}/api/admin/products`}
         />
         <Paginator
           path={'/admin/products'}

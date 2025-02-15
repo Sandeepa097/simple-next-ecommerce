@@ -31,7 +31,7 @@ async function CollectionList() {
         headerTitle="Collections"
         emptyMessage="No collections found"
         newButton={{ href: '/admin/collections/new', text: 'New Collection' }}
-        deleteUrl={`${process.env.NEXT_PUBLIC_ORIGIN}/api/admin/collections`}
+        actionUrl={`${process.env.NEXT_PUBLIC_ORIGIN}/api/admin/collections`}
       />
     );
   } catch (error) {

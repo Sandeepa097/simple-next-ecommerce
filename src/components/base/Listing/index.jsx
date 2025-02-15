@@ -7,7 +7,7 @@ export default function Index({
   headerTitle,
   emptyMessage,
   newButton,
-  deleteUrl,
+  actionUrl,
   search = false,
   initialSearch = '',
   path = '',
@@ -26,7 +26,7 @@ export default function Index({
       <Listing
         items={items}
         emptyMessage={emptyMessage}
-        deleteUrl={deleteUrl}
+        actionUrl={actionUrl}
       />
     </div>
   );

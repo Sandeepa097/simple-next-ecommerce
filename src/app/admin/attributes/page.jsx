@@ -30,7 +30,7 @@ async function AttributeList() {
         headerTitle="Attributes"
         emptyMessage="No attributes found"
         newButton={{ href: '/admin/attributes/new', text: 'New Attribute' }}
-        deleteUrl={`${process.env.NEXT_PUBLIC_ORIGIN}/api/admin/attributes`}
+        actionUrl={`${process.env.NEXT_PUBLIC_ORIGIN}/api/admin/attributes`}
       />
     );
   } catch (error) {
